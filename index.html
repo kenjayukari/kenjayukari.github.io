@@ -98,7 +98,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2026/11/16/git/" data-id="cuidvI2qILY19UcBBzN1fZjno" data-title="git" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2026/11/16/git/" data-id="cuidcsNr8ncxD0WO9EZK7rlZC" data-title="git" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -149,10 +149,642 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2026/11/16/hello-world/" data-id="cuidJMXo0rW34ZHe_k8UEbm11" data-title="Hello World" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2026/11/16/hello-world/" data-id="cuidjH-gMV257JD5NlGAFH-pI" data-title="Hello World" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-博客搭建与维护" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2026/11/16/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E4%B8%8E%E7%BB%B4%E6%8A%A4/" class="article-date">
+  <time class="dt-published" datetime="2026-11-16T02:00:00.000Z" itemprop="datePublished">2026-11-16</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/">博客搭建</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2026/11/16/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E4%B8%8E%E7%BB%B4%E6%8A%A4/">博客搭建与维护</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <ul>
+<li>参考信息：<ul>
+<li>文章：<a target="_blank" rel="noopener" href="https://mofan212.github.io/posts/Something-About-Blog/">博客搭建与维护</a></li>
+<li>视频教程：<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Yb411a7ty">手把手教你从0开始搭建自己的个人博客（Bilibili）</a></li>
+<li>阿里云 OSS 图床配置：<a target="_blank" rel="noopener" href="https://blog.csdn.net/kai123wen/article/details/104027802">阿里云OSS PicGo 配置图床教程</a></li>
+<li>Butterfly 文档：<a target="_blank" rel="noopener" href="https://butterfly.js.org/posts/21cfbf15/">快速開始 | Butterfly</a></li>
+<li>Butterfly 魔改系列：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/antmoe/p/12846393.html">Hexo博客之butterfly主题优雅魔改系列</a></li>
+<li>RSS 插件：<a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo-generator-feed">hexo-generator-feed</a></li>
+<li>Mermaid 插件：<a target="_blank" rel="noopener" href="https://github.com/webappdevelp/hexo-filter-mermaid-diagrams">webappdevelp&#x2F;hexo-filter-mermaid-diagrams</a></li>
+<li>Twikoo：<a target="_blank" rel="noopener" href="https://twikoo.js.org/">Twikoo 官网</a></li>
+<li>MongoDB 连接语法：<a target="_blank" rel="noopener" href="https://www.runoob.com/mongodb/mongodb-connections.html">MongoDB 连接</a><blockquote>
+<p>[!info] 须知<br>使用 <strong>Hexo</strong> 框架 + <strong>Butterfly</strong> 主题，部署在 GitHub</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<p>从 0 搭建 Hexo 博客的过程、踩过的坑、做过的魔改整理成的一份实战笔记，主要包含四部分：</p>
+<ol>
+<li>前言：搭建博客需要的工具和整体流程。</li>
+<li>问题：搭建和维护过程中遇到的 9 个常见问题。</li>
+<li>魔改：对 Butterfly 主题做的 6 个美化修改。</li>
+<li>最佳实践：写 Markdown 时的两个建议。</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>原文采用的方式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>博客框架</td>
+<td>Hexo（静态博客生成器）</td>
+</tr>
+<tr>
+<td>主题</td>
+<td>hexo-theme-butterfly</td>
+</tr>
+<tr>
+<td>部署平台</td>
+<td>GitHub Pages</td>
+</tr>
+<tr>
+<td>写作工具</td>
+<td>Typora，或其他 Markdown 编辑器</td>
+</tr>
+<tr>
+<td>图片存储</td>
+<td>阿里云 OSS + PicGo 图床</td>
+</tr>
+<tr>
+<td>评论系统</td>
+<td>Twikoo + MongoDB</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>名词</th>
+<th>一句话解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Node.js</td>
+<td>让 JavaScript 程序能在电脑上运行的环境，Hexo 靠它运行</td>
+</tr>
+<tr>
+<td>npm</td>
+<td>Node.js 自带的包管理器，负责安装 Hexo 和各类插件</td>
+</tr>
+<tr>
+<td>Git</td>
+<td>版本管理工具，Hexo 部署到 GitHub 时靠它上传文件</td>
+</tr>
+<tr>
+<td>GitHub</td>
+<td>存放代码的网站；GitHub Pages 可以用它免费托管静态博客</td>
+</tr>
+<tr>
+<td>Hexo</td>
+<td>静态博客生成器，把 Markdown 文章变成 HTML 网站</td>
+</tr>
+<tr>
+<td>主题</td>
+<td>网站的外观模板；Butterfly 是其中一种 Hexo 主题</td>
+</tr>
+<tr>
+<td>Front matter</td>
+<td>文章开头 <code>---</code> 之间的元信息，例如 title、date、tags</td>
+</tr>
+<tr>
+<td>渲染引擎</td>
+<td>把 Markdown 转成 HTML 的程序；也叫渲染器</td>
+</tr>
+<tr>
+<td>图床</td>
+<td>专门存放图片、并能给出图片链接的服务</td>
+</tr>
+<tr>
+<td>阿里云 OSS</td>
+<td>阿里云的对象存储服务，可当图床使用</td>
+</tr>
+<tr>
+<td>PicGo</td>
+<td>图床上传工具，把本地图片上传到图床并复制链接</td>
+</tr>
+<tr>
+<td>环境变量 PATH</td>
+<td>告诉系统“去哪里找命令”；找不到 hexo 常和 PATH 有关</td>
+</tr>
+<tr>
+<td>YAML</td>
+<td>配置文件格式，注意冒号后要有空格、缩进要一致</td>
+</tr>
+<tr>
+<td>RSS</td>
+<td>博客订阅源，读者可以用订阅器获取更新</td>
+</tr>
+<tr>
+<td>LaTeX &#x2F; KaTeX &#x2F; MathJax</td>
+<td>渲染数学公式的方案</td>
+</tr>
+<tr>
+<td>Mermaid</td>
+<td>用代码画流程图、时序图、甘特图等图表的工具</td>
+</tr>
+<tr>
+<td>404</td>
+<td>“页面不存在”的错误</td>
+</tr>
+<tr>
+<td>MongoDB</td>
+<td>一种数据库，Twikoo 评论数据存在这里</td>
+</tr>
+<tr>
+<td>Twikoo</td>
+<td>第三方评论系统</td>
+</tr>
+</tbody></table>
+<h2 id="2-搭建博客的完整流程"><a href="#2-搭建博客的完整流程" class="headerlink" title="2. 搭建博客的完整流程"></a>2. 搭建博客的完整流程</h2><h3 id="2-1-前提：先装好-Node-js-和-Git"><a href="#2-1-前提：先装好-Node-js-和-Git" class="headerlink" title="2.1 前提：先装好 Node.js 和 Git"></a>2.1 前提：先装好 Node.js 和 Git</h3><ul>
+<li>要求电脑上先有 <strong>Node.js</strong> 和 <strong>Git</strong>，并会写 Markdown 文档<blockquote>
+<p>[!note] 小白补充</p>
+<ul>
+<li>想验证是否安装成功，可以打开终端输入 <code>node -v</code>、<code>npm -v</code>、<code>git --version</code>，能显示版本号就说明装好了。</li>
+<li>Windows 下安装 Git 后一般会自带 <strong>Git Bash</strong>，一个类似黑窗口的终端，后续很多命令在 Git Bash 里执行。</li>
+<li>不会 Git 也没关系，先按教程一步步来，能跑通部署即可。</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+<h3 id="2-2-第一步：先搭出一个最简单的博客"><a href="#2-2-第一步：先搭出一个最简单的博客" class="headerlink" title="2.2 第一步：先搭出一个最简单的博客"></a>2.2 第一步：先搭出一个最简单的博客</h3><p>- </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 安装 Hexo 命令行工具</span></span><br><span class="line">npm install -g hexo-cli</span><br><span class="line"></span><br><span class="line"><span class="comment"># 在某个目录里初始化博客</span></span><br><span class="line">hexo init 博客目录名</span><br><span class="line"><span class="built_in">cd</span> 博客目录名</span><br><span class="line"></span><br><span class="line"><span class="comment"># 本地预览，浏览器打开 http://localhost:4000 查看</span></span><br><span class="line">hexo s</span><br></pre></td></tr></table></figure>
+
+<p>文章放在 <code>source/_posts</code> 目录下，文件名以 <code>.md</code> 结尾</p>
+<blockquote>
+<p>[!warning] 一个容易踩的坑<br>如果以前搭过 Hexo，不要把旧博客的 <code>source</code> 文件夹整个复制到新博客里。<br>页面应该用 <code>hexo new page 页面名</code> 这样的命令生成，例如：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo new page tags</span><br><span class="line">hexo new page categories</span><br></pre></td></tr></table></figure></blockquote>
+<h3 id="2-3-报错：hexo-命令找不到"><a href="#2-3-报错：hexo-命令找不到" class="headerlink" title="2.3 报错：hexo 命令找不到"></a>2.3 报错：hexo 命令找不到</h3><p>症状：全局安装 Hexo 后，在 Git Bash 输入 <code>hexo</code>，提示 <code>-bash: hexo: command not found</code>。</p>
+<p>原因：系统不知道去哪个目录找 <code>hexo</code> 这个命令，即 npm 全局安装目录没有加入 PATH。</p>
+<p>解决办法：</p>
+<ul>
+<li>把 npm 的全局模块存放路径（<code>node_global</code> 对应的目录）加入环境变量 PATH，然后重启 Git Bash。</li>
+<li>如果还不行，在 <code>hexo</code> 前加 <code>npx</code>：<code>npx hexo</code>，后面正常追加参数。</li>
+</ul>
+<blockquote>
+<p>[!note] 小白补充<br>Windows 下 npm 全局可执行文件通常在：<br><code>C:\Users\你的用户名\AppData\Roaming\npm</code><br>把这一层目录加入 PATH 后，终端才能直接识别 <code>hexo</code> 命令。</p>
+</blockquote>
+<h3 id="2-4-图片问题：什么是图床"><a href="#2-4-图片问题：什么是图床" class="headerlink" title="2.4 图片问题：什么是图床"></a>2.4 图片问题：什么是图床</h3><p>Markdown 里的图片是“引用”的。文章里写 <code>![](图片链接)</code>，部署到博客后，浏览器要能通过网络访问到这张图。</p>
+<p>如果图片只在本地电脑上，别人打开你的博客就看不到。解决办法是把图片传到<strong>图床</strong>，拿到一个网络图片链接。</p>
+<p>推荐：</p>
+<ul>
+<li>注册阿里云账号。</li>
+<li>参考 <a target="_blank" rel="noopener" href="https://blog.csdn.net/kai123wen/article/details/104027802">阿里云OSS PicGo 配置图床教程</a> 配置阿里云 OSS。</li>
+<li>用 PicGo 上传图片并得到链接。</li>
+</ul>
+<blockquote>
+<p>[!note] 小白补充</p>
+<ul>
+<li>阿里云 OSS 就像一块“云上的硬盘”，按用量收费；原文建议博客访问量低时不用买流量包、储存包，充值几块钱用默认配置即可。</li>
+<li>PicGo 负责“上传图片 + 自动复制链接”，你只需要把链接粘到 Markdown 的 <code>![](链接)</code> 里。</li>
+<li>原文还提到：不推荐再用 GitHub &#x2F; Gitee 当免费图床，前者访问慢，后者政策限制多。</li>
+</ul>
+</blockquote>
+<h3 id="2-5-让-emoji-正常显示"><a href="#2-5-让-emoji-正常显示" class="headerlink" title="2.5 让 emoji 正常显示"></a>2.5 让 emoji 正常显示</h3><p>在 Typora 里直接插入的 emoji，部署到 Hexo 后可能变成 <code>:kissing_heart:</code> 这样的短代码字符串</p>
+<p>解决办法：换掉 Hexo 默认的 Markdown 渲染引擎，并安装 emoji 插件。</p>
+<p>在博客根目录执行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 卸载默认渲染引擎</span></span><br><span class="line">npm un hexo-renderer-marked --save</span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装新的渲染引擎</span></span><br><span class="line">npm i hexo-renderer-markdown-it --save</span><br><span class="line"></span><br><span class="line"><span class="comment"># 解析 emoji 简短代码</span></span><br><span class="line">npm install markdown-it-emoji --save</span><br></pre></td></tr></table></figure>
+
+<p>接着在主配置文件 <code>_config.yml</code> 中增加以下内容：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## 修改 markdown 渲染引擎为 hexo-renderer-marked-it，这个插件渲染速度更快，且有新特性</span></span><br><span class="line"><span class="attr">markdown:</span></span><br><span class="line">  <span class="attr">render:</span></span><br><span class="line">    <span class="attr">html:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">xhtmlOut:</span> <span class="literal">false</span></span><br><span class="line">    <span class="attr">breaks:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">linkify:</span> <span class="literal">false</span></span><br><span class="line">    <span class="attr">typographer:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">quotes:</span> <span class="string">&#x27;“”‘’&#x27;</span></span><br><span class="line">  <span class="attr">plugins:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">markdown-it-mark</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">markdown-it-footnote</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">markdown-it-sup</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">markdown-it-sub</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">markdown-it-abbr</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">markdown-it-emoji</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">markdown-it-checkbox</span> <span class="comment"># tasklist</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">plugin:</span> <span class="comment"># 数学公式 Katex</span></span><br><span class="line">      <span class="attr">name:</span> <span class="string">&#x27;@renbaoshuo/markdown-it-katex&#x27;</span></span><br><span class="line">      <span class="attr">options:</span></span><br><span class="line">        <span class="attr">strict:</span> <span class="literal">false</span></span><br><span class="line">  <span class="attr">anchors:</span></span><br><span class="line">    <span class="attr">level:</span> <span class="number">1</span></span><br><span class="line">    <span class="attr">collisionSuffix:</span> <span class="string">&#x27;v&#x27;</span></span><br><span class="line">    <span class="attr">permalink:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">permalinkClass:</span> <span class="string">header-anchor</span></span><br><span class="line">    <span class="attr">permalinkSymbol:</span> <span class="string">&#x27;&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p>原文还给出了一组可选的增强插件：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">npm i markdown-it-mark --save</span><br><span class="line">npm i markdown-it-footnote --save</span><br><span class="line">npm i markdown-it-sup --save</span><br><span class="line">npm i markdown-it-sub --save</span><br><span class="line">npm i markdown-it-abbr --save</span><br><span class="line">npm i markdown-it-emoji --save</span><br><span class="line">npm i markdown-it-checkbox --save</span><br><span class="line">npm i katex @renbaoshuo/markdown-it-katex</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>[!note] 小白补充</p>
+<ul>
+<li>“渲染引擎”决定 Markdown 能支持哪些语法。默认引擎不支持某些功能时，就换成功能更多的引擎。</li>
+<li>这里的 <code>_config.yml</code> 是<strong>博客根目录下的主配置文件</strong>，不是主题里的那个。</li>
+</ul>
+</blockquote>
+<h3 id="2-6-主题配置"><a href="#2-6-主题配置" class="headerlink" title="2.6 主题配置"></a>2.6 主题配置</h3><p>博客搭好后，找一个喜欢的主题套上去。</p>
+<p>本站使用的是 <code>hexo-theme-butterfly</code>：</p>
+<ul>
+<li>Butterfly 文档：<a target="_blank" rel="noopener" href="https://butterfly.js.org/posts/21cfbf15/">Butterfly 安裝文檔(一) 快速開始</a></li>
+<li>主题魔改系列：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/antmoe/p/12846393.html">Hexo博客之butterfly主题优雅魔改系列</a></li>
+<li>配置文件参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_43350051/article/details/104923503">短短1天我学会了如何修改Butterfly的配置文件</a></li>
+</ul>
+<p>下载主题后，菜单栏可能只有“归档”，分类、标签都需要自己加。按主题文档操作即可。</p>
+<blockquote>
+<p>[!warning] 原文提醒<br>主题的配置文档一定要认真读，很多配置项和写法都写在里面。</p>
+</blockquote>
+<h4 id="Page-页和-Post-页"><a href="#Page-页和-Post-页" class="headerlink" title="Page 页和 Post 页"></a>Page 页和 Post 页</h4><p>原文把这两种页面做了区分：</p>
+<table>
+<thead>
+<tr>
+<th>原文叫法</th>
+<th>指什么</th>
+<th>例子</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Page 页</td>
+<td>文章详情页，即点开一篇文章后看到的页面</td>
+<td>单篇文章页面</td>
+</tr>
+<tr>
+<td>Post 页</td>
+<td>点击菜单栏选项后跳转的页面，用 <code>hexo new page xxxx</code> 创建</td>
+<td>标签页、分类页</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>[!note] 小白补充<br>Hexo 官方文档里 post 通常指“文章”，page 通常指“独立页面”。原文这里的叫法主要是为了解释 Butterfly 文档，看到时知道意思即可，不用太纠结。</p>
+</blockquote>
+<h3 id="2-7-主配置文件和主题配置文件"><a href="#2-7-主配置文件和主题配置文件" class="headerlink" title="2.7 主配置文件和主题配置文件"></a>2.7 主配置文件和主题配置文件</h3><p>Hexo 博客里有两个容易混淆的 <code>_config.yml</code>：</p>
+<table>
+<thead>
+<tr>
+<th>文件位置</th>
+<th>名称</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>博客根目录 <code>_config.yml</code></td>
+<td>主配置文件</td>
+<td>网站信息、插件配置、部署配置等</td>
+</tr>
+<tr>
+<td><code>themes/主题名/_config.yml</code></td>
+<td>主题配置文件</td>
+<td>主题外观、菜单、图标、注入代码等</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>[!warning] 重要</p>
+<ul>
+<li>修改主题相关设置，一般改主题配置文件。</li>
+<li>两者都是 YAML 文件：每个英文冒号后要加一个空格；同级配置前的缩进保持一致；含特殊字符的字符串建议用引号包起来。</li>
+</ul>
+</blockquote>
+<h3 id="2-8-到这里，博客基本就搭好了"><a href="#2-8-到这里，博客基本就搭好了" class="headerlink" title="2.8 到这里，博客基本就搭好了"></a>2.8 到这里，博客基本就搭好了</h3><p>完成以上步骤后，一个基础博客就算搭建完成。下文是原文在维护博客过程中遇到的问题和魔改，遇到类似情况再查阅。</p>
+<h2 id="3-常见问题排查"><a href="#3-常见问题排查" class="headerlink" title="3. 常见问题排查"></a>3. 常见问题排查</h2><h3 id="3-1-文章链接没有生效-404（hexo-abbrlink）"><a href="#3-1-文章链接没有生效-404（hexo-abbrlink）" class="headerlink" title="3.1 文章链接没有生效 &#x2F; 404（hexo-abbrlink）"></a>3.1 文章链接没有生效 &#x2F; 404（hexo-abbrlink）</h3><h4 id="原文背景"><a href="#原文背景" class="headerlink" title="原文背景"></a>原文背景</h4><p>Hexo 默认的文章链接规则是 <code>:year/:month/:day/:title</code>。</p>
+<p>如果文章标题是中文，生成的链接会变成很长一串 URL 编码字符，很难看。可以使用 <code>hexo-abbrlink</code> 插件，在文章 Front matter 中写自定义短链接：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">abbrlink:</span> <span class="string">Basic-CSS3-knowledge</span></span><br></pre></td></tr></table></figure>
+
+<p>安装方式参考：<a target="_blank" rel="noopener" href="https://yangchaoyi.vip/posts/520520/#%E5%9C%B0%E5%9D%80%E6%A0%8F%E6%B7%BB%E5%8A%A0-abbrlink">Hexo+Github 博客 butterfly 和 matery 主题 搭建完全教程</a></p>
+<h4 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h4><p>原文把 <code>abbrlink</code> 从 <code>Basic-CSS3-knowledge</code> 改成 <code>Basic-CSS3-Knowledge</code> 后，执行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo g</span><br><span class="line">hexo d</span><br></pre></td></tr></table></figure>
+
+<p>但线上链接仍是旧地址，点击文章出现 404。</p>
+<h4 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h4><p><code>abbrlink</code> 会作为文件夹名生成链接。Git 默认不追踪文件夹名称的大小写修改，所以只改了文件内容，线上文件夹名没变。</p>
+<h4 id="推荐解决办法"><a href="#推荐解决办法" class="headerlink" title="推荐解决办法"></a>推荐解决办法</h4><ol>
+<li>先在 <code>_posts</code> 中移除这篇文章。</li>
+<li>部署一次博客。</li>
+<li>把文章重新放回 <code>_posts</code>。</li>
+<li>再部署一次博客。</li>
+</ol>
+<blockquote>
+<p>[!note] 小白补充</p>
+<ul>
+<li>Front matter 就是文章最顶部 <code>---</code> 之间那段元信息。</li>
+<li>404 表示“页面不存在”：链接变了之后，旧地址自然打不开。</li>
+<li>如果已经发布过文章，尽量不要随意改永久链接，否则旧链接会失效。</li>
+</ul>
+</blockquote>
+<h3 id="3-2-社交图标和分享按钮不显示"><a href="#3-2-社交图标和分享按钮不显示" class="headerlink" title="3.2 社交图标和分享按钮不显示"></a>3.2 社交图标和分享按钮不显示</h3><h4 id="症状"><a href="#症状" class="headerlink" title="症状"></a>症状</h4><p>侧边栏社交图标、文章页分享按钮在电脑浏览器上看不到，但在手机浏览器上正常。</p>
+<h4 id="原因-1"><a href="#原因-1" class="headerlink" title="原因"></a>原因</h4><p>不是主题问题，而是电脑 Chrome 安装了广告拦截插件 <strong>AdGuard</strong>，把图标和按钮误拦了。</p>
+<h4 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h4><ul>
+<li>不使用 AdGuard；</li>
+<li>换用 AdBlock；</li>
+<li>或自定义 AdGuard 的拦截规则，放行网站内容。</li>
+</ul>
+<blockquote>
+<p>[!note] 小白补充<br>广告拦截插件按规则隐藏网页元素，有时会把网站自己的图标、搜索框一起误伤。遇到“电脑不行、手机正常”的情况，先关掉浏览器插件试试。</p>
+</blockquote>
+<p>原文还提到：AdGuard 同样导致本地搜索插件被拦截，排查了很久才发现是插件的问题。</p>
+<h3 id="3-3-Node-js-版本过高警告"><a href="#3-3-Node-js-版本过高警告" class="headerlink" title="3.3 Node.js 版本过高警告"></a>3.3 Node.js 版本过高警告</h3><h4 id="症状-1"><a href="#症状-1" class="headerlink" title="症状"></a>症状</h4><p>运行 <code>hexo v</code> 或 <code>hexo g</code> 时出现：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Warning: Accessing non-existent property &#x27;column&#x27; of module exports inside circular dependency</span><br><span class="line">Warning: Accessing non-existent property &#x27;filename&#x27; of module exports inside circular dependency</span><br></pre></td></tr></table></figure>
+
+<h4 id="原因与解决"><a href="#原因与解决" class="headerlink" title="原因与解决"></a>原因与解决</h4><p>很可能是因为 Node.js 版本过高。原文写作时从 Node 14.15 换回 12.18 后问题消失。</p>
+<blockquote>
+<p>[!note] 小白补充</p>
+<ul>
+<li>用 <code>node -v</code> 可以查看当前 Node.js 版本。</li>
+<li>现在不必照抄 12.18 这个版本号，但原则仍然适用：优先使用官方 LTS（长期支持版），不要盲目追求最新版。</li>
+</ul>
+</blockquote>
+<h3 id="3-4-重建博客时运行错误"><a href="#3-4-重建博客时运行错误" class="headerlink" title="3.4 重建博客时运行错误"></a>3.4 重建博客时运行错误</h3><h4 id="情况一：没有按命令创建文件夹"><a href="#情况一：没有按命令创建文件夹" class="headerlink" title="情况一：没有按命令创建文件夹"></a>情况一：没有按命令创建文件夹</h4><p><code>hexo init</code> 生成的基本骨架中，<code>source</code> 目录下只有一个 <code>_posts</code> 目录。</p>
+<p>不要直接把旧博客的 <code>source</code> 文件夹整个复制过来。需要用命令创建页面：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo new page tags</span><br><span class="line">hexo new page categories</span><br></pre></td></tr></table></figure>
+
+<h4 id="情况二：插件缺失"><a href="#情况二：插件缺失" class="headerlink" title="情况二：插件缺失"></a>情况二：插件缺失</h4><p>重建博客后执行 <code>hexo g</code> 报错，很可能是插件缺失。</p>
+<p>原文列出的本站插件及安装命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Butterfly 主题必备的 pug、stylus 渲染器</span></span><br><span class="line">npm install hexo-renderer-pug hexo-renderer-stylus --save</span><br><span class="line"></span><br><span class="line"><span class="comment"># 文章字数统计</span></span><br><span class="line">npm install hexo-wordcount --save</span><br><span class="line"></span><br><span class="line"><span class="comment"># 本地搜索（原文后来改用 DocSearch）</span></span><br><span class="line">npm install hexo-generator-search --save</span><br><span class="line"></span><br><span class="line"><span class="comment"># Markdown 渲染器与 emoji 表情</span></span><br><span class="line">npm un hexo-renderer-marked --save</span><br><span class="line">npm i hexo-renderer-markdown-it --save</span><br><span class="line">npm i markdown-it-mark --save</span><br><span class="line">npm i markdown-it-footnote --save</span><br><span class="line">npm i markdown-it-sup --save</span><br><span class="line">npm i markdown-it-sub --save</span><br><span class="line">npm i markdown-it-abbr --save</span><br><span class="line">npm i markdown-it-emoji --save</span><br><span class="line">npm i markdown-it-checkbox --save</span><br><span class="line">npm i katex @renbaoshuo/markdown-it-katex</span><br><span class="line"></span><br><span class="line"><span class="comment"># 地址栏美化 / 文章永久链接</span></span><br><span class="line">npm install hexo-abbrlink --save</span><br><span class="line"></span><br><span class="line"><span class="comment"># RSS 订阅</span></span><br><span class="line">npm install hexo-generator-feed --save</span><br><span class="line"></span><br><span class="line"><span class="comment"># Git 部署</span></span><br><span class="line">npm install --save hexo-deployer-git</span><br><span class="line"></span><br><span class="line"><span class="comment"># Mermaid 图表（Butterfly 5.0.0 之后一般不再需要）</span></span><br><span class="line">npm i mofan212/hexo-filter-mermaid-diagrams --save</span><br><span class="line"></span><br><span class="line"><span class="comment"># 站点地图、归档页面</span></span><br><span class="line">npm install hexo-generator-sitemap hexo-generator-archive --save</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>[!note] 小白补充</p>
+<ul>
+<li><code>node_modules</code> 目录里放着已安装的插件，<code>package.json</code> 记录项目依赖。</li>
+<li>换电脑或重建博客后，依赖可能没有全部带过来，报错时优先检查插件是否齐全。</li>
+</ul>
+</blockquote>
+<h3 id="3-5-YAML-语法报错"><a href="#3-5-YAML-语法报错" class="headerlink" title="3.5 YAML 语法报错"></a>3.5 YAML 语法报错</h3><h4 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h4><p>给博客换字体时，在主题配置文件里写了：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">font:</span></span><br><span class="line">  <span class="attr">global-font-size:</span> <span class="string">15px</span></span><br><span class="line">  <span class="attr">code-font-size:</span> <span class="string">16px</span></span><br><span class="line">  <span class="attr">font-family:</span> <span class="string">&quot;LXGW WenKai Screen&quot;</span><span class="string">,</span> <span class="string">&quot;Microsoft YaHei&quot;</span><span class="string">,</span> <span class="string">sans-serif</span></span><br><span class="line">  <span class="attr">code-font-family:</span></span><br></pre></td></tr></table></figure>
+
+<p>执行 <code>hexo g</code> 时报 YAML 解析错误。</p>
+<h4 id="原因-2"><a href="#原因-2" class="headerlink" title="原因"></a>原因</h4><p><code>font-family</code> 后面的内容包含多个带引号的字体名，YAML 需要明确知道这是一个字符串。不加引号时无法解析。</p>
+<h4 id="解决-1"><a href="#解决-1" class="headerlink" title="解决"></a>解决</h4><p>用单引号把整个值包起来：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">font:</span></span><br><span class="line">  <span class="attr">global-font-size:</span> <span class="string">15px</span></span><br><span class="line">  <span class="attr">code-font-size:</span> <span class="string">16px</span></span><br><span class="line">  <span class="attr">font-family:</span> <span class="string">&#x27;&quot;LXGW WenKai Screen&quot;, &quot;Microsoft YaHei&quot;, sans-serif&#x27;</span></span><br><span class="line">  <span class="attr">code-font-family:</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>[!note] 小白补充<br>YAML 和 JSON 有关联，但写法更宽松。冒号后加空格、缩进一致、特殊内容加引号，是三个最重要的习惯。</p>
+</blockquote>
+<h3 id="3-6-LaTeX-公式重复显示"><a href="#3-6-LaTeX-公式重复显示" class="headerlink" title="3.6 LaTeX 公式重复显示"></a>3.6 LaTeX 公式重复显示</h3><h4 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h4><p>LaTeX 渲染插件冲突，比如 KaTeX 和 MathJax 同时启用，移除其中一个即可。</p>
+<h4 id="检查方向"><a href="#检查方向" class="headerlink" title="检查方向"></a>检查方向</h4><ol>
+<li>只保留一种渲染插件。常见插件：</li>
+</ol>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">hexo-renderer-marked</span><br><span class="line">hexo-renderer-kramed</span><br><span class="line">@renbaoshuo/markdown-it-katex</span><br><span class="line">@upupming/hexo-renderer-markdown-it-plus</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>使用 <code>hexo-renderer-markdown-it</code> 时，要移除 Hexo 默认的 <code>hexo-renderer-marked</code>。</li>
+<li>某些主题需要在主题配置文件中打开 MathJax 或 KaTeX 的开关；原文使用 Butterfly 时就是因为没配置开关而重复显示。</li>
+</ol>
+<blockquote>
+<p>[!note] 小白补充<br>KaTeX 和 MathJax 都是“渲染数学公式”的工具，同时存在会各渲染一遍，公式就会显示两次。</p>
+</blockquote>
+<h3 id="3-7-Windows-PowerShell-无法执行-hexo-命令"><a href="#3-7-Windows-PowerShell-无法执行-hexo-命令" class="headerlink" title="3.7 Windows PowerShell 无法执行 hexo 命令"></a>3.7 Windows PowerShell 无法执行 hexo 命令</h3><h4 id="症状-2"><a href="#症状-2" class="headerlink" title="症状"></a>症状</h4><p>在 Git Bash 中能运行 <code>hexo</code>，但在 Windows PowerShell 中提示“无法加载文件”。</p>
+<h4 id="解决-2"><a href="#解决-2" class="headerlink" title="解决"></a>解决</h4><p>以管理员身份运行 PowerShell，执行：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Set-ExecutionPolicy</span> <span class="literal">-ExecutionPolicy</span> UNRESTRICTED</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>[!note] 小白补充</p>
+<ul>
+<li>这是 PowerShell 的“执行策略”，出于安全默认不允许运行某些脚本。</li>
+<li>原文给的 UNRESTRICTED 最简单，但安全性低一些。更稳妥的做法可以设置成 <code>RemoteSigned</code>，只信任本机和已签名脚本。</li>
+</ul>
+</blockquote>
+<h3 id="3-8-归档页面-404"><a href="#3-8-归档页面-404" class="headerlink" title="3.8 归档页面 404"></a>3.8 归档页面 404</h3><h4 id="症状-3"><a href="#症状-3" class="headerlink" title="症状"></a>症状</h4><p>执行 <code>hexo s</code> 本地预览后，访问归档页显示 <code>Cannot GET /archives/</code>；部署后点击归档跳到 404。</p>
+<h4 id="原因-3"><a href="#原因-3" class="headerlink" title="原因"></a>原因</h4><p>归档页面由插件 <code>hexo-generator-archive</code> 生成。<code>hexo init</code> 时通常会自带，但可能因误操作被移除。</p>
+<h4 id="解决-3"><a href="#解决-3" class="headerlink" title="解决"></a>解决</h4><p>安装插件并重新部署：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-generator-archive --save</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>[!note] 小白补充</p>
+<ul>
+<li><code>hexo g</code> 会在 <code>public</code> 目录生成最终的网站文件。</li>
+<li><code>Cannot GET /archives/</code> 的意思是服务器找不到这个路径，通常对应生成的 <code>public/archives</code> 目录不存在。</li>
+</ul>
+</blockquote>
+<h3 id="3-9-历史评论消失（Twikoo-MongoDB）"><a href="#3-9-历史评论消失（Twikoo-MongoDB）" class="headerlink" title="3.9 历史评论消失（Twikoo + MongoDB）"></a>3.9 历史评论消失（Twikoo + MongoDB）</h3><h4 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h4><p>原文使用 Twikoo 评论系统，部署平台从 Zeabur 换到 Netlify，之后历史评论和管理员密码都消失了。</p>
+<h4 id="排查过程"><a href="#排查过程" class="headerlink" title="排查过程"></a>排查过程</h4><ol>
+<li>MongoDB 连接正常，能设置新密码。</li>
+<li>查看 MongoDB，发现新增了 <code>test</code> 数据库，而历史数据在 <code>twikoo</code> 数据库里。</li>
+<li>查看 Twikoo 源码，发现连接字符串里通过 <code>/database</code> 指定数据库。</li>
+<li>MongoDB 标准连接语法：</li>
+</ol>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mongodb://[username:password@]host1[:port1][,host2[:port2],...[,hostN[:portN]]][/[database][?options]]</span><br></pre></td></tr></table></figure>
+
+<p>不指定 <code>/database</code> 时，默认连 <code>test</code> 数据库。</p>
+<h4 id="解决-4"><a href="#解决-4" class="headerlink" title="解决"></a>解决</h4><p>Netlify 中原配置的连接字符串是：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mongodb+srv://&lt;username&gt;:&lt;password&gt;@cluster0.sxuss9s.mongodb.net/?retryWrites=true&amp;w=majority</span><br></pre></td></tr></table></figure>
+
+<p>修改为显式指定 <code>twikoo</code> 数据库：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mongodb+srv://&lt;username&gt;:&lt;password&gt;@cluster0.sxuss9s.mongodb.net/twikoo?retryWrites=true&amp;w=majority</span><br></pre></td></tr></table></figure>
+
+<p>然后在 Netlify 的 Deploys 中点击 Trigger deploy 重新部署，评论和密码就恢复了。</p>
+<blockquote>
+<p>[!note] 小白补充</p>
+<ul>
+<li>MongoDB 连接字符串相当于“数据库地址 + 账号密码 + 数据库名”。</li>
+<li>路径里的 <code>/twikoo</code> 就是数据库名；不写就会落到默认的 <code>test</code> 库，数据看起来像“丢了”，其实在另一个库里。</li>
+</ul>
+</blockquote>
+<h2 id="4-一些魔改"><a href="#4-一些魔改" class="headerlink" title="4. 一些魔改"></a>4. 一些魔改</h2><h3 id="4-1-移除文章页侧边栏滚动条"><a href="#4-1-移除文章页侧边栏滚动条" class="headerlink" title="4.1 移除文章页侧边栏滚动条"></a>4.1 移除文章页侧边栏滚动条</h3><p>基于 Butterfly 主题。</p>
+<p>修改文件：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">blog/themes/Butterfly/layout/includes/sidebar.pug</span><br></pre></td></tr></table></figure>
+
+<p>在对应位置添加：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(style=&quot;overflow: hidden;&quot;)</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>[!note] 小白补充</p>
+<ul>
+<li><code>.pug</code> 是主题模板文件格式，不是普通网页文件。</li>
+<li>直接改主题文件后，升级主题时修改可能被覆盖，改前记得备份。</li>
+</ul>
+</blockquote>
+<h3 id="4-2-添加-RSS-订阅"><a href="#4-2-添加-RSS-订阅" class="headerlink" title="4.2 添加 RSS 订阅"></a>4.2 添加 RSS 订阅</h3><p>基于 Butterfly 3.0.0。</p>
+<ol>
+<li>安装插件：</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-generator-feed --save</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>在 Hexo 主配置文件 <code>_config.yml</code> 中添加：</li>
+</ol>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">feed:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">atom</span></span><br><span class="line">  <span class="attr">path:</span> <span class="string">atom.xml</span></span><br><span class="line">  <span class="attr">limit:</span> <span class="number">20</span></span><br><span class="line">  <span class="attr">hub:</span></span><br><span class="line">  <span class="attr">content:</span></span><br><span class="line">  <span class="attr">content_limit:</span> <span class="number">140</span></span><br><span class="line">  <span class="attr">content_limit_delim:</span> <span class="string">&#x27; &#x27;</span></span><br><span class="line">  <span class="attr">order_by:</span> <span class="string">-date</span></span><br><span class="line">  <span class="attr">icon:</span> <span class="string">icon.png</span></span><br><span class="line">  <span class="attr">autodiscovery:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">template:</span></span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>在 Butterfly 主题配置文件 <code>_config.yml</code> 中添加 RSS 图标：</li>
+</ol>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">social:</span></span><br><span class="line">  <span class="attr">fa fa-rss:</span> <span class="string">/atom.xml</span> <span class="string">||</span> <span class="string">RSS链接</span></span><br></pre></td></tr></table></figure>
+
+<p>参考：<a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo-generator-feed">hexo-generator-feed</a></p>
+<blockquote>
+<p>[!note] 小白补充<br>RSS 相当于“博客的订阅源”。读者用 RSS 阅读器订阅后，更新文章时会收到提醒。</p>
+</blockquote>
+<h3 id="4-3-更换分割线图标"><a href="#4-3-更换分割线图标" class="headerlink" title="4.3 更换分割线图标"></a>4.3 更换分割线图标</h3><p>基于 Butterfly 3.0.0。把文章分割线图标换成“太空飞船”。</p>
+<p>修改主题配置文件 <code>_config.yml</code>：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">hr_icon:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">icon:</span> <span class="string">&#x27;\f197&#x27;</span> <span class="comment"># the unicode value of Font Awesome icon</span></span><br><span class="line">  <span class="attr">icon-top:</span> <span class="string">-10px</span></span><br></pre></td></tr></table></figure>
+
+<p><code>icon-top</code> 常用值：</p>
+<ul>
+<li><code>-20px</code>：图标位于分割线上方</li>
+<li><code>-10px</code>：图标位于分割线中间</li>
+<li><code>0px</code>：图标位于分割线下方</li>
+</ul>
+<blockquote>
+<p>[!note] 小白补充<br><code>\f197</code> 是 Font Awesome 字体里某个图标的 Unicode 编号。想换图标，需要查 Font Awesome 图标对应的 Unicode 值。</p>
+</blockquote>
+<h3 id="4-4-实现-CheckBox"><a href="#4-4-实现-CheckBox" class="headerlink" title="4.4 实现 CheckBox"></a>4.4 实现 CheckBox</h3><h4 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h4><p>Hexo 默认渲染引擎 <code>hexo-renderer-marked</code> 不支持 emoji，原文换成了 <code>hexo-renderer-markdown-it</code>。</p>
+<p>但 <code>markdown-it</code> 默认也不支持 CheckBox，需要第三方插件。原文最终选用 <code>markdown-it-checkbox</code>。</p>
+<h4 id="安装插件"><a href="#安装插件" class="headerlink" title="安装插件"></a>安装插件</h4><p>在博客根目录执行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install markdown-it-checkbox --save</span><br></pre></td></tr></table></figure>
+
+<h4 id="添加样式"><a href="#添加样式" class="headerlink" title="添加样式"></a>添加样式</h4><p>在博客主题文件夹 <code>source/css</code> 下创建一个 CSS 文件，复制以下内容：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">input</span><span class="selector-attr">[type=<span class="string">&quot;checkbox&quot;</span>]</span> &#123;</span><br><span class="line">  <span class="attribute">display</span>: none <span class="meta">!important</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">input</span><span class="selector-attr">[type=<span class="string">&quot;checkbox&quot;</span>]</span> + <span class="selector-tag">label</span><span class="selector-pseudo">::before</span> &#123;</span><br><span class="line">  <span class="attribute">content</span>: <span class="string">&#x27;\a0&#x27;</span>;</span><br><span class="line">  <span class="attribute">display</span>: inline-block;</span><br><span class="line">  <span class="attribute">margin-right</span>: <span class="number">0.2em</span>;</span><br><span class="line">  <span class="attribute">border</span>: <span class="number">1px</span> solid;</span><br><span class="line">  <span class="attribute">border-radius</span>: <span class="number">0.2em</span>;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">0.8em</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">0.8em</span>;</span><br><span class="line">  <span class="attribute">vertical-align</span>: <span class="number">0.1em</span>;</span><br><span class="line">  <span class="attribute">text-indent</span>: <span class="number">0.1em</span>;</span><br><span class="line">  <span class="attribute">line-height</span>: <span class="number">0.7</span>;</span><br><span class="line">  <span class="attribute">cursor</span>: not-allowed;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">input</span><span class="selector-attr">[type=<span class="string">&quot;checkbox&quot;</span>]</span><span class="selector-pseudo">:checked</span> + <span class="selector-tag">label</span><span class="selector-pseudo">::before</span> &#123;</span><br><span class="line">  <span class="attribute">content</span>: <span class="string">&#x27;\2714&#x27;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后在主题配置文件中引用这个 CSS 文件。</p>
+<h4 id="可选：设置只读"><a href="#可选：设置只读" class="headerlink" title="可选：设置只读"></a>可选：设置只读</h4><p>在主题文件夹 <code>source/js</code> 下创建 JS 文件：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*设置 checkbox 为只读*/</span></span><br><span class="line">$(<span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">    $(<span class="string">&quot;input[type=&#x27;checkbox&#x27;]&quot;</span>).<span class="title function_">click</span>(<span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">checked</span> = !<span class="variable language_">this</span>.<span class="property">checked</span>;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>并在主题配置文件中引用这个 JS 文件。</p>
+<blockquote>
+<p>[!warning] Butterfly 3.4.0 之后的写法<br>Butterfly 3.4.0 起移除了 JQuery，需要用原生 JS：</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">window</span>.<span class="property">onload</span> = <span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">    <span class="keyword">var</span> inputs =  <span class="variable language_">document</span>.<span class="title function_">getElementsByTagName</span>(<span class="string">&quot;input&quot;</span>);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>;i &lt; inputs.<span class="property">length</span>; i++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(inputs[i].<span class="property">type</span> == <span class="string">&quot;checkbox&quot;</span>)&#123;</span><br><span class="line">            inputs[i].<span class="property">onclick</span> = <span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">                <span class="variable language_">this</span>.<span class="property">checked</span> = !<span class="variable language_">this</span>.<span class="property">checked</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="语法注意"><a href="#语法注意" class="headerlink" title="语法注意"></a>语法注意</h4><p>该插件支持的语法和 Typora 不一样：</p>
+<table>
+<thead>
+<tr>
+<th>工具</th>
+<th>语法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Typora</td>
+<td><code>- [ ] 内容</code></td>
+</tr>
+<tr>
+<td>markdown-it-checkbox</td>
+<td><code>[ ] 内容</code>（前面没有 <code>-</code>）</td>
+</tr>
+</tbody></table>
+<p>勾选状态在中括号里写 <code>x</code>：</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[ ] 未完成</span><br><span class="line">[x] 已完成</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-5-给图片添加边框"><a href="#4-5-给图片添加边框" class="headerlink" title="4.5 给图片添加边框"></a>4.5 给图片添加边框</h3><p>基于 Butterfly 5.2.1。</p>
+<p>在主题文件夹 <code>source/css</code> 下创建 CSS 文件，复制以下内容，并在主题配置文件中引用：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 文章图片增加边框*/</span></span><br><span class="line"><span class="selector-id">#post</span> <span class="selector-tag">img</span><span class="selector-attr">[class^=entered]</span><span class="selector-attr">[class$=loaded]</span>&#123;</span><br><span class="line">    <span class="attribute">display</span>: block;</span><br><span class="line">    <span class="attribute">border</span>: <span class="number">5px</span> solid <span class="number">#ddd</span>;</span><br><span class="line">    <span class="attribute">padding</span>: <span class="number">5px</span>;</span><br><span class="line">    <span class="attribute">background</span>: <span class="number">#fff</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-6-使用-Mermaid-画图"><a href="#4-6-使用-Mermaid-画图" class="headerlink" title="4.6 使用 Mermaid 画图"></a>4.6 使用 Mermaid 画图</h3><p>Mermaid 是一个用 JS 在本地渲染图表的库，可以画流程图、状态图、时序图、甘特图。</p>
+<p>Typora 中的语法是：</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="code">```mermaid</span></span><br><span class="line"><span class="code">内容</span></span><br><span class="line"><span class="code">```</span></span><br></pre></td></tr></table></figure>
+
+<p>Butterfly 主题早期不支持这种代码块语法，而是用标签外挂：</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;% mermaid %&#125;</span><br><span class="line">内容</span><br><span class="line">&#123;% endmermaid %&#125;</span><br></pre></td></tr></table></figure>
+
+<p>为了把 Typora 写好的文章直接搬进 Hexo，最好保持 Typora 的代码块写法。</p>
+<h4 id="新版方案（Butterfly-5-0-0-及以上）"><a href="#新版方案（Butterfly-5-0-0-及以上）" class="headerlink" title="新版方案（Butterfly 5.0.0 及以上）"></a>新版方案（Butterfly 5.0.0 及以上）</h4><p>前提：</p>
+<ul>
+<li>Butterfly 主题版本 ≥ 5.0.0</li>
+<li>Hexo 版本 ≥ 7.0.0</li>
+<li>如果之前装过旧方案插件，先卸载：<code>npm uninstall hexo-filter-mermaid-diagrams</code></li>
+</ul>
+<p>在 Hexo 主配置文件中添加 <code>exclude_languages: [&#39;mermaid&#39;]</code>：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">highlight:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">line_number:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">auto_detect:</span> <span class="literal">false</span></span><br><span class="line">  <span class="attr">tab_replace:</span> <span class="string">&#x27;&#x27;</span></span><br><span class="line">  <span class="attr">wrap:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">hljs:</span> <span class="literal">false</span></span><br><span class="line">  <span class="attr">exclude_languages:</span> [<span class="string">&#x27;mermaid&#x27;</span>]</span><br><span class="line"><span class="attr">prismjs:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">false</span></span><br><span class="line">  <span class="attr">preprocess:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">line_number:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">tab_replace:</span> <span class="string">&#x27;&#x27;</span></span><br><span class="line">  <span class="attr">exclude_languages:</span> [<span class="string">&#x27;mermaid&#x27;</span>]</span><br></pre></td></tr></table></figure>
+
+<p>在 Butterfly 主题配置文件中开启 <code>code_write</code>：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">mermaid:</span></span><br><span class="line">  <span class="comment"># 启用 Mermaid</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line">  <span class="comment"># 使用代码块编写 Mermaid 图表</span></span><br><span class="line">  <span class="attr">code_write:</span> <span class="literal">true</span></span><br><span class="line">  <span class="comment"># built-in themes: default / forest / dark / neutral</span></span><br><span class="line">  <span class="attr">theme:</span></span><br><span class="line">    <span class="attr">light:</span> <span class="string">default</span></span><br><span class="line">    <span class="attr">dark:</span> <span class="string">dark</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="旧版方案（Butterfly-5-0-0-以下）"><a href="#旧版方案（Butterfly-5-0-0-以下）" class="headerlink" title="旧版方案（Butterfly 5.0.0 以下）"></a>旧版方案（Butterfly 5.0.0 以下）</h4><p>安装插件：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-filter-mermaid-diagrams --save</span><br></pre></td></tr></table></figure>
+
+<p>在 Hexo 主配置文件中添加：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Mermaid tag</span></span><br><span class="line"><span class="attr">mermaid:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line">  <span class="comment"># Available themes: default | dark | forest | neutral</span></span><br><span class="line">  <span class="attr">theme:</span></span><br><span class="line">    <span class="attr">light:</span> <span class="string">default</span></span><br><span class="line">    <span class="attr">dark:</span> <span class="string">dark</span></span><br></pre></td></tr></table></figure>
+
+<p>在 Butterfly 主题配置文件中引入 <code>mermaid.min.js</code>：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">inject:</span></span><br><span class="line">  <span class="attr">head:</span></span><br><span class="line">    <span class="comment"># - &lt;link rel=&quot;stylesheet&quot; href=&quot;/xxx.css&quot;&gt;</span></span><br><span class="line">  <span class="attr">bottom:</span></span><br><span class="line">    <span class="comment"># - &lt;script src=&quot;xxxx&quot;&gt;&lt;/script&gt;</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">&lt;script</span> <span class="string">src=&quot;https://unpkg.com/mermaid/dist/mermaid.min.js&quot;&gt;&lt;/script&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>参考链接：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/moshuying/p/15801437.html">【hexo指南】hexo配置ER图流程图时序图插件</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/webappdevelp/hexo-filter-mermaid-diagrams">webappdevelp&#x2F;hexo-filter-mermaid-diagrams</a></li>
+</ul>
+<blockquote>
+<p>[!note] 小白补充<br><code>exclude_languages: [&#39;mermaid&#39;]</code> 是告诉高亮插件“mermaid 代码块不要按普通代码高亮”，留给 Mermaid 自己渲染。</p>
+</blockquote>
+<h2 id="5-Markdown-编写建议"><a href="#5-Markdown-编写建议" class="headerlink" title="5. Markdown 编写建议"></a>5. Markdown 编写建议</h2><p>原文建议：文字加粗、高亮、删除、斜体等语法前后用空格隔开，能让 Markdown 在不同场景更正确地渲染：</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">空格<span class="strong">**加粗**</span>空格</span><br><span class="line">空格==高亮==空格</span><br><span class="line">空格~~删除~~空格</span><br><span class="line">空格<span class="emphasis">_斜体_</span>空格</span><br></pre></td></tr></table></figure>
+
+<p>Emoji 表情前后也用空格隔开：</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">空格👻空格</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>[!tip] 为什么<br>中文和英文字符混排时，不加空格容易让解析器或主题 CSS 处理出奇怪的效果。Obsidian 里写作时保持这个习惯也能让排版更稳定。</p>
+</blockquote>
+<h2 id="6-常用命令速查"><a href="#6-常用命令速查" class="headerlink" title="6. 常用命令速查"></a>6. 常用命令速查</h2><table>
+<thead>
+<tr>
+<th>命令</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>npm install -g hexo-cli</code></td>
+<td>全局安装 Hexo 命令行工具</td>
+</tr>
+<tr>
+<td><code>hexo init 目录名</code></td>
+<td>初始化博客</td>
+</tr>
+<tr>
+<td><code>hexo new post 文章名</code></td>
+<td>新建文章</td>
+</tr>
+<tr>
+<td><code>hexo new page 页面名</code></td>
+<td>新建独立页面（如 tags）</td>
+</tr>
+<tr>
+<td><code>hexo clean</code></td>
+<td>清理缓存</td>
+</tr>
+<tr>
+<td><code>hexo g</code>（generate）</td>
+<td>生成静态网站文件</td>
+</tr>
+<tr>
+<td><code>hexo s</code>（server）</td>
+<td>本地预览，默认 <a target="_blank" rel="noopener" href="http://localhost:4000/">http://localhost:4000</a></td>
+</tr>
+<tr>
+<td><code>hexo d</code>（deploy）</td>
+<td>部署到远程（如 GitHub Pages）</td>
+</tr>
+<tr>
+<td><code>npm install 包名 --save</code></td>
+<td>安装插件并写入 package.json</td>
+</tr>
+<tr>
+<td><code>npm un 包名 --save</code></td>
+<td>卸载插件</td>
+</tr>
+<tr>
+<td><code>node -v</code> &#x2F; <code>npm -v</code></td>
+<td>查看 Node.js &#x2F; npm 版本</td>
+</tr>
+<tr>
+<td><code>git --version</code></td>
+<td>查看 Git 版本</td>
+</tr>
+</tbody></table>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2026/11/16/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E4%B8%8E%E7%BB%B4%E6%8A%A4/" data-id="cuidaXqfu8DZtBaOvUjKuc84-" data-title="博客搭建与维护" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/" rel="tag">博客搭建</a></li></ul>
+
     </footer>
   </div>
   
@@ -168,12 +800,33 @@
           <aside id="sidebar">
   
     
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/">博客搭建</a></li></ul>
+    </div>
+  </div>
+
 
   
     
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/" rel="tag">博客搭建</a></li></ul>
+    </div>
+  </div>
+
 
   
     
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/" style="font-size: 10px;">博客搭建</a>
+    </div>
+  </div>
+
   
     
   <div class="widget-wrap">
@@ -197,6 +850,10 @@
         
           <li>
             <a href="/2026/11/16/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2026/11/16/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E4%B8%8E%E7%BB%B4%E6%8A%A4/">博客搭建与维护</a>
           </li>
         
       </ul>
