@@ -22,7 +22,8 @@
   --color-sticky: #fff;
   --color-h2-border: #eee;
   --color-meta-shadow: var(--red-6);
-  --color-hover-shadow: rgba(120,120,120,0.15);
+  --color-shadow: rgba(0,0,0,0.06);
+  --color-shadow-ambient: rgba(0,0,0,0.04);
   --color-h2-after: var(--red-1);
   --color-red-6-shadow: rgba(255, 78, 78, 0.6);
   --color-red-3-shadow: rgba(255, 78, 78, 0.3);
@@ -34,7 +35,6 @@
   --highlight-comment: #7d7d7d;
   --highlight-red: #d73a49;
   --highlight-orange: #e36209;
-  --highlight-yellow: #cb911d;
   --highlight-green: #22863a;
   --highlight-aqua: #005cc5;
   --highlight-blue: #032f62;
@@ -49,10 +49,10 @@
   --footer-icon: url("../images/taichi.png");
   --sponsor-icon: url("../images/taichi.png");
   --top-icon: url("../images/taichi.png");
-  --shadow-meta: 0 0 5px 2px var(--color-meta-shadow);
-  --shadow-meta-hover: 0 0 6px 4px var(--color-meta-shadow);
-  --shadow-card: 0 0 10px 2px var(--color-hover-shadow);
-  --shadow-card-hover: 0 0 10px 4px var(--color-hover-shadow);
+  --shadow-meta: 0 1px 3px var(--color-meta-shadow), 0 5px 16px var(--color-meta-shadow);
+  --shadow-meta-hover: 0 2px 5px var(--color-meta-shadow), 0 8px 22px var(--color-meta-shadow);
+  --shadow-card: 0 2px 8px var(--color-shadow), 0 8px 32px var(--color-shadow-ambient);
+  --shadow-card-hover: 0 8px 24px var(--color-shadow), 0 24px 64px var(--color-shadow-ambient);
   --shadow-red-6-shadow: 0 0 8px var(--color-red-6-shadow);
 }
 [data-theme='dark']:root {
@@ -71,8 +71,9 @@
   --color-mobile-nav-background: #21252b;
   --color-wrap: #272b30;
   --color-h2-border: #47474a;
-  --color-meta-shadow: rgba(0,0,0,0.2);
-  --color-hover-shadow: rgba(0,0,0,0.2);
+  --color-meta-shadow: rgba(8,8,12,0.2);
+  --color-shadow: rgba(8,8,12,0.3);
+  --color-shadow-ambient: rgba(8,8,12,0.15);
   --highlight-nav: #222830;
   --highlight-scrollbar: #454d59;
   --highlight-background: #1e2027;
@@ -81,7 +82,6 @@
   --highlight-comment: #8b949e;
   --highlight-red: #ff7b72;
   --highlight-orange: #ffa657;
-  --highlight-yellow: #ffcc66;
   --highlight-green: #7ee787;
   --highlight-aqua: #a5d6ff;
   --highlight-blue: #79c0ff;
@@ -90,6 +90,8 @@
   --highlight-deletion-bg: #490202;
   --highlight-addition: #7ee787;
   --highlight-addition-bg: #04260f;
+  --shadow-card: 0 4px 16px var(--color-shadow), 0 24px 80px var(--color-shadow-ambient);
+  --shadow-card-hover: 0 8px 24px var(--color-shadow), 0 32px 96px var(--color-shadow-ambient);
 }
 [data-theme='dark']:root img {
   filter: brightness(70%);
@@ -905,7 +907,7 @@ button {
   padding: 10px;
   cursor: var(--cursor-pointer) !important;
   color: var(--red-2);
-  transition: 1s;
+  transition: 0.3s;
 }
 .select-items li:hover {
   color: #fff;
@@ -1678,7 +1680,7 @@ button {
   border-bottom: 1px solid var(--color-h2-border);
   position: absolute;
   bottom: -15px;
-  transition: 1s;
+  transition: 0.6s;
 }
 .archive-year-wrap:after {
   content: '';
@@ -1751,7 +1753,7 @@ button {
   text-align: center;
   color: var(--grey-9);
   overflow: hidden;
-  transition: 1s;
+  transition: 0.3s;
 }
 #page-nav:hover {
   box-shadow: var(--shadow-card);
@@ -2232,7 +2234,6 @@ pre .emphasis {
   filter: invert(50%);
   cursor: var(--cursor-pointer) !important;
   user-select: none;
-  --webkit-user-select: none;
 }
 .code-expand {
   margin: 5px;
@@ -2810,12 +2811,10 @@ pre .emphasis {
   min-height: 100px;
   width: 100px;
   height: 100px;
-  border-radius: 50%;
-  transition: opacity 0.3s;
+  border-radius: 12px;
   opacity: 0;
   object-fit: cover;
   margin: 20px;
-  box-shadow: 0 0 15px 5px var(--color-red-6-shadow);
   will-change: transform;
   transition: 0.3s;
 }
@@ -2843,7 +2842,7 @@ pre .emphasis {
   padding: 24px 0;
   color: var(--red-0);
   opacity: 0.8;
-  transition: opacity 0.5s, color 0.5s;
+  transition: opacity 0.3s, color 0.3s;
 }
 .sidebar-state:hover {
   opacity: 1;
@@ -2918,7 +2917,7 @@ pre .emphasis {
   margin: 8px auto;
   justify-content: center;
   border: 10px var(--color-red-3-shadow) double;
-  transition: border 0.5s, background 0.5s, color 0.5s;
+  transition: border 0.3s, background 0.3s, color 0.3s;
 }
 .sidebar-menu-link-wrap:hover {
   border: 10px var(--color-h2-after) double;
@@ -2935,7 +2934,7 @@ pre .emphasis {
 .sidebar-menu-icon {
   font-size: 24px;
   font-weight: 400;
-  transition: transform 0.3s, background 0.5s, color 0.5s;
+  transition: transform 0.3s, background 0.3s, color 0.3s;
   will-change: transform;
   pointer-events: none;
   padding: 5px;

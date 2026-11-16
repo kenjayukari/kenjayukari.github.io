@@ -2,14 +2,13 @@ window.throttle = (func, limit) => {
   let lastFunc, lastRan;
 
   return (...args) => {
-    const context = this;
     if (!lastRan || Date.now() - lastRan >= limit) {
-      func.apply(context, args);
+      func(...args);
       lastRan = Date.now();
     } else {
       clearTimeout(lastFunc);
       lastFunc = setTimeout(() => {
-        func.apply(context, args);
+        func(...args);
         lastRan = Date.now();
       }, limit - (Date.now() - lastRan));
     }
@@ -194,8 +193,7 @@ window.throttle = (func, limit) => {
       style.textContent = css;
       document.body.appendChild(style);
     }
-    async function generateScheme(imageFile) {
-      const scheme = await extractor.generateThemeSchemeFromImage(imageFile);
+    const applyScheme = (scheme) => {
       document.documentElement.style.setProperty(
         "--md-sys-color-primary-light",
         extractor.hexFromArgb(scheme.schemes.light.props.primary)
@@ -204,6 +202,10 @@ window.throttle = (func, limit) => {
         "--md-sys-color-primary-dark",
         extractor.hexFromArgb(scheme.schemes.dark.props.primary)
       );
+    };
+    async function generateScheme(imageFile) {
+      const scheme = await extractor.generateThemeSchemeFromImage(imageFile);
+      applyScheme(scheme);
 
       const existingStyle = _$("#reimu-generated-theme-style");
       if (existingStyle) {
@@ -232,14 +234,7 @@ window.throttle = (func, limit) => {
           g: parseInt(rgba[1]),
           b: parseInt(rgba[2]),
         });
-        document.documentElement.style.setProperty(
-          "--md-sys-color-primary-light",
-          extractor.hexFromArgb(scheme.schemes.light.props.primary)
-        );
-        document.documentElement.style.setProperty(
-          "--md-sys-color-primary-dark",
-          extractor.hexFromArgb(scheme.schemes.dark.props.primary)
-        );
+        applyScheme(scheme);
         appendStylesheet();
       }
     };
