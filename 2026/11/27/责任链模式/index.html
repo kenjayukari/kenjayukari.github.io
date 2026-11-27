@@ -1,0 +1,598 @@
+  <!DOCTYPE html>
+  <html lang="zh-CN"  data-theme-mode="auto">
+  <head>
+  <meta charset="utf-8">
+  
+  
+  
+  <script>window.REIMU_CONFIG = {};window.REIMU_CONFIG.icon_font = '4552607_ex15nbittbh';window.REIMU_CONFIG.clipboard_tips = {"success":{"zh-CN":"复制成功 (*^▽^*)"},"fail":{"zh-CN":"复制失败 (ﾟ⊿ﾟ)ﾂ"},"copyright":{"enable":false,"count":50,"license_type":"by-nc-sa"}};window.REIMU_CONFIG.clipboard_tips.copyright.content = '本博客所有文章除特别声明外，均采用 BY-NC-SA 许可协议。转载请注明出处！';window.REIMU_CONFIG.code_block = {"expand":true};window.REIMU_CONFIG.base = 'http://example.com';window.REIMU_CONFIG.relative = '/';window.REIMU_CONFIG.dark_mode = {"button":true,"mode":"auto"};</script>
+  <title>
+    责任链设计模式 | 随缘更新
+  </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="preload" as="style" href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic|Noto Serif SC:400,400italic,700,700italic&display=swap"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic|Noto Serif SC:400,400italic,700,700italic&display=swap" media="print" onload="this.media='all'">
+    <link rel="preload" href="//at.alicdn.com/t/c/font_4552607_ex15nbittbh.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+    
+<link rel="stylesheet" href="/css/loader.css">
+
+    <meta name="description" content="责任链模式：构建对象链，链条上的每个处理器各自承担各自的处理职责。一个请求先经过 A 处理器处理，然后再把请求传递给 B 处理器，B 处理器处理完后再传递给 C 处理器，以此类推 应用场景：请求的预处理、过滤、分发等场景 优缺点： 优点：解耦、灵活 缺点：处理链处理时间过长影响性能，有些请求可能无法处理    基本结构 基本结构：  抽象处理器 Handler：定义一个处理请求的接口，包含一个处">
+<meta property="og:type" content="article">
+<meta property="og:title" content="责任链设计模式">
+<meta property="og:url" content="http://example.com/2026/11/27/%E8%B4%A3%E4%BB%BB%E9%93%BE%E6%A8%A1%E5%BC%8F/index.html">
+<meta property="og:site_name" content="随缘更新">
+<meta property="og:description" content="责任链模式：构建对象链，链条上的每个处理器各自承担各自的处理职责。一个请求先经过 A 处理器处理，然后再把请求传递给 B 处理器，B 处理器处理完后再传递给 C 处理器，以此类推 应用场景：请求的预处理、过滤、分发等场景 优缺点： 优点：解耦、灵活 缺点：处理链处理时间过长影响性能，有些请求可能无法处理    基本结构 基本结构：  抽象处理器 Handler：定义一个处理请求的接口，包含一个处">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/7bfe83d808b76afb3714948837f3f9eb.jpeg">
+<meta property="og:image" content="http://example.com/img/b6657accc204b9bcdcffc85df8f560f6.jpeg">
+<meta property="og:image" content="http://example.com/img/041e045e678cd2d4a4de2f31bbf6b4bb.jpeg">
+<meta property="article:published_time" content="2026-11-26T16:00:00.000Z">
+<meta property="article:modified_time" content="2026-11-27T13:28:04.247Z">
+<meta property="article:author" content="Kenja">
+<meta property="article:tag" content="Java">
+<meta property="article:tag" content="设计模式">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/7bfe83d808b76afb3714948837f3f9eb.jpeg">
+    <link rel="alternate" href="/atom.xml" title="随缘更新" type="application/atom+xml">
+    <link rel="shortcut icon" href="/images/favicon.ico">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  <link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="https://npm.webcache.cn/photoswipe@5.4.4/dist/photoswipe.css" integrity="sha384-IfxC36XL/toUyJ939C73PcgMuRzAZuIzZxE38drsmO5p6jD7ei+Zx/1oA/0l8ysE" crossorigin="anonymous">
+    
+<script src="https://npm.webcache.cn/pace-js@1.2.4/pace.min.js" integrity="sha384-k6YtvFUEIuEFBdrLKJ3YAUbBki333tj1CSUisai5Cswsg9wcLNaPzsTHDswp4Az8" crossorigin="anonymous"></script>
+
+    
+<link rel="stylesheet" href="https://npm.webcache.cn/@reimujs/aos@0.1.3/dist/aos.css" integrity="sha384-GMRP93c6Hkz9JVKGAuRR3nTS7M07RwPgTFenXiosjq2VbVgvdDNcz1g6Mkj8AONa" crossorigin="anonymous">
+
+<meta name="generator" content="Hexo 8.1.2"></head>
+
+  <body>
+      <div id='loader'>
+    <div class="loading-left-bg loading-bg"></div>
+    <div class="loading-right-bg loading-bg"></div>
+    <div class="spinner-box">
+      <div class="loading-taichi rotate">
+          <svg width="150" height="150" viewBox="0 0 1024 1024" class="icon" version="1.1" xmlns="https://www.w3.org/2000/svg" shape-rendering="geometricPrecision">
+            <path d="M303.5 432A80 80 0 0 1 291.5 592A80 80 0 0 1 303.5 432z" fill="var(--red-1, #ff5252)" />
+            <path d="M512 65A447 447 0 0 1 512 959L512 929A417 417 0 0 0 512 95A417 417 0 0 0 512 929L512 959A447 447 0 0 1 512 65z 
+           M512 95A417 417 0 0 1 929 512A208.5 208.5 0 0 1 720.5 720.5L720.5 592A80 80 0 0 0 720.5 432A80 80 0 0 0 720.5 592L720.5 720.5A208.5 208.5 0 0 1 512 512A208.5 208.5 0 0 0 303.5 303.5A208.5 208.5 0 0 0 95 512A417 417 0 0 1 512 95z" fill="var(--red-1, #ff5252)" />
+          </svg>
+      </div>
+      <div class="loading-word">少女祈祷中...</div>
+    </div>
+  </div>
+  <script>
+    var time = null;
+    var loaderEl = document.getElementById('loader');
+    var startLoading = () => {
+      time = Date.now();
+      loaderEl.classList.remove("loading");
+    }
+    var hideLoader = () => {
+      document.body.style.overflow = 'auto';
+      loader.classList.add('loading');
+    };
+
+    var endLoading = () => {
+      if (!time) {
+        hideLoader();
+      } else {
+        if (Date.now() - time > 500) {
+          time = null;
+          hideLoader();
+        } else {
+          setTimeout(endLoading, 500 - (Date.now() - time));
+          time = null;
+        }
+      }
+    }
+    window.addEventListener('DOMContentLoaded', endLoading);
+    loaderEl.addEventListener('click', endLoading);
+  </script>
+<div id="copy-tooltip"></div>
+<div id="heatmap-tooltip"></div>
+
+
+    <div id="container">
+      <div id="wrap">
+        <div id="header-nav">
+  <nav id="main-nav" aria-label="Primary navigation">
+        <a class="main-nav-link-wrap" href="/">
+            <div class="main-nav-icon icon rotate">
+                &#xe62b;
+            </div>
+          <span class="main-nav-link">首页</span>
+        </a>
+        <a class="main-nav-link-wrap" href="/archives">
+            <div class="main-nav-icon icon rotate">
+                &#xe62b;
+            </div>
+          <span class="main-nav-link">归档</span>
+        </a>
+        <a class="main-nav-link-wrap" href="/about">
+            <div class="main-nav-icon icon rotate">
+                &#xe62b;
+            </div>
+          <span class="main-nav-link">关于</span>
+        </a>
+        <a class="main-nav-link-wrap" href="/friend">
+            <div class="main-nav-icon icon rotate">
+                &#xe62b;
+            </div>
+          <span class="main-nav-link">友链</span>
+        </a>
+    <a id="main-nav-toggle" class="nav-icon" aria-label="Toggle navigation" role="button"></a>
+  </nav>
+  <nav id="sub-nav" aria-label="Secondary navigation">
+      <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS 订阅" aria-label="RSS 订阅" target="_blank"></a>
+  </nav>
+</div>
+<header id="header" aria-label="Site header">
+        <picture>
+        </picture>
+          <img  fetchpriority="high" src="/images/banner.webp" alt="责任链设计模式">
+  <div id="header-outer">
+    <div id="header-title">
+          <span id="logo">
+            <h1 data-aos="slide-up">责任链设计模式</h1>
+          </span>
+        <h2 id="subtitle-wrap" data-aos="slide-down">
+        </h2>
+    </div>
+  </div>
+</header>
+
+        <div id="content" aria-label="Page content"  class="sidebar-right" >
+          <aside id="sidebar" aria-label="Sidebar">
+  <div class="sidebar-wrapper-container sticky">
+    
+  <div class="sidebar-wrapper">
+    <div class="sidebar-wrap" data-aos="fade-up">
+        <div class="sidebar-toc-sidebar"><h3 class="toc-title">文章目录</h3>
+<div class="sidebar-toc-wrapper toc-div-class" >
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E7%BB%93%E6%9E%84"><span class="toc-number">1.</span> <span class="toc-text">基本结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%A4%E7%A7%8D%E5%A4%84%E7%90%86%E6%A8%A1%E5%BC%8F"><span class="toc-number">2.</span> <span class="toc-text">两种处理模式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AF%B7%E6%B1%82%E7%BB%8F%E8%BF%87%E6%89%80%E6%9C%89%E5%A4%84%E7%90%86%E5%99%A8%E2%80%94%E2%80%94Mybatis"><span class="toc-number">2.1.</span> <span class="toc-text">请求经过所有处理器——Mybatis</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%8D%E7%AC%A6%E5%90%88%E6%9D%A1%E4%BB%B6%E8%87%AA%E5%8A%A8%E9%98%BB%E6%96%AD%E6%B5%81%E7%A8%8B"><span class="toc-number">2.2.</span> <span class="toc-text">不符合条件自动阻断流程</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8B%E5%8D%95%E5%9C%BA%E6%99%AF%E5%AE%9E%E6%88%98"><span class="toc-number">3.</span> <span class="toc-text">下单场景实战</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8A%BD%E8%B1%A1%E5%9F%BA%E7%A1%80%E7%B1%BB"><span class="toc-number">3.1.</span> <span class="toc-text">抽象基础类</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8A%BD%E8%B1%A1%E4%B8%9A%E5%8A%A1%E6%8E%A5%E5%8F%A3"><span class="toc-number">3.2.</span> <span class="toc-text">抽象业务接口</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%B7%E4%BD%93%E4%B8%9A%E5%8A%A1%E6%8E%A5%E5%8F%A3"><span class="toc-number">3.3.</span> <span class="toc-text">具体业务接口</span></a></li></ol></li></ol>
+</div>
+</div>
+        <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
+  <img data-src="/avatar/%E8%BF%A6%E6%91%A9.jpg" data-sizes="auto" alt="Kenja" class="lazyload">
+  <div class="sidebar-author-name">Kenja</div>
+  <div class="sidebar-description"></div>
+</div>
+<div class="sidebar-state">
+  <div class="sidebar-state-article">
+    <div>文章</div>
+    <div class="sidebar-state-number">7</div>
+  </div>
+  <div class="sidebar-state-category">
+    <div>分类</div>
+    <div class="sidebar-state-number">5</div>
+  </div>
+  <div class="sidebar-state-tag">
+    <div>标签</div>
+    <div class="sidebar-state-number">11</div>
+  </div>
+</div>
+<div class="sidebar-social" >
+    <div class="icon-github sidebar-social-icon">
+      <a href=https://github.com/kenjayukari itemprop="url" target="_blank" aria-label="github" rel="noopener nofollow noreferrer"></a>
+    </div>
+    <div class="icon-bilibili sidebar-social-icon">
+      <a href=https://space.bilibili.com/ itemprop="url" target="_blank" aria-label="bilibili" rel="noopener nofollow noreferrer"></a>
+    </div>
+    <div class="icon-pixiv sidebar-social-icon">
+      <a href=https://www.pixiv.net/users/119815951 itemprop="url" target="_blank" aria-label="pixiv" rel="noopener nofollow noreferrer"></a>
+    </div>
+</div>
+<div class="sidebar-menu">
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/" aria-label="首页"></a>
+          <div class="sidebar-menu-icon icon rotate">
+              &#xe62b;
+          </div>
+        <div class="sidebar-menu-link">首页</div>
+      </div>
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/archives" aria-label="归档"></a>
+          <div class="sidebar-menu-icon icon rotate">
+              &#xe62b;
+          </div>
+        <div class="sidebar-menu-link">归档</div>
+      </div>
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/about" aria-label="关于"></a>
+          <div class="sidebar-menu-icon icon rotate">
+              &#xe62b;
+          </div>
+        <div class="sidebar-menu-link">关于</div>
+      </div>
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/friend" aria-label="友链"></a>
+          <div class="sidebar-menu-icon icon rotate">
+              &#xe62b;
+          </div>
+        <div class="sidebar-menu-link">友链</div>
+      </div>
+</div>
+</div>
+        <div class="sidebar-btn-wrapper" style="position:static">
+          <div class="sidebar-toc-btn current"></div>
+          <div class="sidebar-common-btn"></div>
+        </div>
+    </div>
+  </div>
+  <div class="sidebar-widget">
+  </div>
+  </div>
+</aside>
+
+          <section id="main" aria-label="Main content"><article id="post-责任链模式" class="h-entry article" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-inner" data-aos="fade-up">
+    <div class="article-meta">
+      <div class="article-date">
+  <span class="article-date-link icon-calendar" data-aos="zoom-in">
+    <time datetime="2026-11-26T16:00:00.000Z" itemprop="datePublished">2026-11-27</time>
+    <time style="display: none;" id="post-update-time">2026-11-27</time>
+  </span>
+</div>
+
+    </div>
+    
+    <div class="hr-line"></div>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+        <ul>
+<li>责任链模式：构建对象链，链条上的每个处理器<strong>各自承担各自的处理职责</strong>。一个请求先经过 A 处理器处理，然后再把请求传递给 B 处理器，B 处理器处理完后再传递给 C 处理器，以此类推</li>
+<li>应用场景：请求的预处理、过滤、分发等场景</li>
+<li>优缺点：<ul>
+<li>优点：解耦、灵活</li>
+<li>缺点：处理链处理时间过长影响性能，有些请求可能无法处理</li>
+</ul>
+</li>
+</ul>
+<h3 id="基本结构"><a href="#基本结构" class="headerlink" title="基本结构"></a>基本结构</h3><ul>
+<li>基本结构：<ul>
+<li><img src="/img/7bfe83d808b76afb3714948837f3f9eb.jpeg"></li>
+<li><strong>抽象处理器</strong> <code>Handler</code>：定义一个处理请求的接口，包含一个处理请求的抽象方法和一个指向下一个处理者的链接</li>
+<li><strong>具体处理器</strong> <code>ConcreteHandler</code>：实现处理请求的方法，并判断能否处理请求，如果能够处理请求则进行处理，否则将请求传递给下一个处理者</li>
+<li><strong>客户端</strong>：创建并组装处理者对象链，将请求发送到链上</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li><strong>抽象处理器</strong> <code>Handler</code>：定义处理请求的接口或抽象类</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> <span class="title class_">Handler</span> &#123;</span><br><span class="line">    <span class="comment">// 处理请求的方法</span></span><br><span class="line">    <span class="type">void</span> <span class="title function_">handleRequest</span><span class="params">(<span class="type">double</span> amount)</span>;</span><br><span class="line">    <span class="comment">// 设置下一个处理者的方法</span></span><br><span class="line">    <span class="type">void</span> <span class="title function_">setNextHandler</span><span class="params">(Handler nextHandler)</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>具体处理者：实现处理请求</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">ConcreteHandler</span> <span class="keyword">implements</span> <span class="title class_">Handler</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> Handler nextHandler;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">void</span> <span class="title function_">handleRequest</span><span class="params">(Request request)</span> &#123;</span><br><span class="line">        <span class="comment">// 根据具体情况处理请求，如果无法处理则交给下一个处理者</span></span><br><span class="line">        <span class="keyword">if</span> (canHandle(request)) &#123;</span><br><span class="line">            <span class="comment">// 处理请求的逻辑</span></span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (nextHandler != <span class="literal">null</span>) &#123;</span><br><span class="line">            <span class="comment">// 交给下一个处理者处理</span></span><br><span class="line">            nextHandler.handleRequest(request);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="comment">// 无法处理请求的逻辑</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">void</span> <span class="title function_">setNextHandler</span><span class="params">(Handler nextHandler)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.nextHandler = nextHandler;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 具体处理者自己的判断条件</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">boolean</span> <span class="title function_">canHandle</span><span class="params">(Request request)</span> &#123;</span><br><span class="line">        <span class="comment">// 根据具体情况判断是否能够处理请求</span></span><br><span class="line">        <span class="keyword">return</span> <span class="comment">/* 判断条件 */</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>客户端</strong>：创建并组装处理者对象链，将请求发送到链上</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Main</span> &#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="type">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">		<span class="comment">// 创建处理者实例</span></span><br><span class="line">		<span class="type">Handler</span> <span class="variable">handler1</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ConcreteHandler</span>();</span><br><span class="line">		<span class="type">Handler</span> <span class="variable">handler2</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ConcreteHandler</span>();</span><br><span class="line">		<span class="comment">// ...</span></span><br><span class="line">		</span><br><span class="line">		<span class="comment">// 构建责任链</span></span><br><span class="line">		handler1.setNextHandler(handler2);</span><br><span class="line">		<span class="comment">//...</span></span><br><span class="line">		</span><br><span class="line">		<span class="comment">// 发送请求</span></span><br><span class="line">		<span class="type">Request</span> <span class="variable">request</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Request</span>(<span class="comment">/* 请求参数 */</span>);</span><br><span class="line">		handler1.handleRequest(request);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="两种处理模式"><a href="#两种处理模式" class="headerlink" title="两种处理模式"></a>两种处理模式</h3><ul>
+<li>两种处理方式：多级处理者按顺序排列，请求自动沿链流转<ol>
+<li>请求会走<strong>所有处理器，不会中途终止</strong>，如 MyBatis 拦截器</li>
+<li>某 <code>Handler</code> 若不符合自定义规则，停止流程<ul>
+<li>SpringMVC 中可定义多个拦截器：当一个用户发起请求时，请求不满足拦截器自定义规则会被打回，若顺利则请求会经过所有拦截器，最终到达业务代码逻辑</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+<h4 id="请求经过所有处理器——Mybatis"><a href="#请求经过所有处理器——Mybatis" class="headerlink" title="请求经过所有处理器——Mybatis"></a>请求经过所有处理器——Mybatis</h4><ul>
+<li><img src="/img/b6657accc204b9bcdcffc85df8f560f6.jpeg"></li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 抽象处理器</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">Interceptor</span> &#123;</span><br><span class="line">    <span class="comment">// 核心拦截逻辑：编写增强代码，并通过 invocation.proceed() 推进责任链</span></span><br><span class="line">    <span class="type">Object</span> <span class="title function_">intercept</span><span class="params">(Invocation invocation)</span> <span class="keyword">throws</span> Throwable;</span><br><span class="line">    <span class="comment">// 生成代理对象：用当前拦截器包装目标对象 target</span></span><br><span class="line">    <span class="type">Object</span> <span class="title function_">plugin</span><span class="params">(Object target)</span>;</span><br><span class="line">    <span class="comment">// 设置属性：用于读取插件在配置文件中定义的 &lt;property&gt; 参数</span></span><br><span class="line">    <span class="type">void</span> <span class="title function_">setProperties</span><span class="params">(Properties properties)</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 具体处理器类</span></span><br><span class="line"><span class="keyword">public</span> xxxInterceptor ...</span><br><span class="line">...</span><br><span class="line"></span><br><span class="line"><span class="comment">// 将具体处理器串成处理器链</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">InterceptorChain</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="type">List</span>&lt;Interceptor&gt; <span class="variable">interceptors</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;Interceptor&gt;(); <span class="comment">// 拦截器列表</span></span><br><span class="line">	<span class="comment">// 遍历所有拦截器，对目标对象进行层层包装</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">Object</span> <span class="title function_">pluginAll</span><span class="params">(Object target)</span> &#123;</span><br><span class="line">	    <span class="comment">// 迭代经过所有拦截器</span></span><br><span class="line">        <span class="keyword">for</span> (Interceptor interceptor : interceptors) &#123;</span><br><span class="line">            target = interceptor.plugin(target);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> target;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">void</span> <span class="title function_">addInterceptor</span><span class="params">(Interceptor interceptor)</span> &#123;</span><br><span class="line">        interceptors.add(interceptor);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">List</span>&lt;Interceptor&gt; <span class="title function_">getInterceptors</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> Collections.unmodifiableList(interceptors);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Plugin：动态代理与责任链的调度器</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Plugin</span> <span class="keyword">implements</span> <span class="title class_">InvocationHandler</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Object target;          <span class="comment">// 被代理的目标对象（可能是原始对象，也可能是上一层的代理）</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Interceptor interceptor; <span class="comment">// 当前代理层对应的拦截器</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Map&lt;Class&lt;?&gt;, Set&lt;Method&gt;&gt; signatureMap; <span class="comment">// 缓存需要拦截的方法签名</span></span><br><span class="line">    <span class="type">private</span> <span class="title function_">Plugin</span><span class="params">(Object target, Interceptor interceptor, Map&lt;Class&lt;?&gt;, Set&lt;Method&gt;&gt; signatureMap)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.target = target;</span><br><span class="line">        <span class="built_in">this</span>.interceptor = interceptor;</span><br><span class="line">        <span class="built_in">this</span>.signatureMap = signatureMap;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 静态工厂方法：为 target 创建动态代理。</span></span><br><span class="line"><span class="comment">     * 这是 Interceptor.plugin() 方法的默认实现。</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="type">Object</span> <span class="title function_">wrap</span><span class="params">(Object target, Interceptor interceptor)</span> &#123;</span><br><span class="line">        <span class="type">Map</span>&lt;Class&lt;?&gt;, Set&lt;Method&gt;&gt; <span class="variable">signatureMap</span> <span class="operator">=</span> getSignatureMap(interceptor);</span><br><span class="line">        <span class="type">Class</span>&lt;?&gt; <span class="variable">type</span> <span class="operator">=</span> target.getClass();</span><br><span class="line">        <span class="comment">// 只获取需要被拦截的接口</span></span><br><span class="line">        <span class="type">Class</span>&lt;?&gt;[] <span class="variable">interfaces</span> <span class="operator">=</span> getAllInterfaces(type, signatureMap);</span><br><span class="line">        <span class="keyword">if</span> (interfaces.length &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> Proxy.newProxyInstance(</span><br><span class="line">                    type.getClassLoader(),</span><br><span class="line">                    interfaces,</span><br><span class="line">                    <span class="keyword">new</span> <span class="title class_">Plugin</span>(target, interceptor, signatureMap));</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> target;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 动态代理的调度中心。所有对代理对象方法的调用都会进入这里。</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">Object</span> <span class="title function_">invoke</span><span class="params">(Object proxy, Method method, Object[] args)</span> <span class="keyword">throws</span> Throwable &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="type">Set</span>&lt;Method&gt; <span class="variable">methods</span> <span class="operator">=</span> signatureMap.get(method.getDeclaringClass());</span><br><span class="line">            <span class="comment">// 1. 检查当前调用的方法是否在拦截器的 @Signature 中声明</span></span><br><span class="line">            <span class="keyword">if</span> (methods != <span class="literal">null</span> &amp;&amp; methods.contains(method)) &#123;</span><br><span class="line">                <span class="comment">// 2. 如果匹配，交给拦截器处理，并传入 Invocation 上下文</span></span><br><span class="line">                <span class="keyword">return</span> interceptor.intercept(<span class="keyword">new</span> <span class="title class_">Invocation</span>(target, method, args));</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// 3. 如果不匹配，直接反射调用目标对象的原方法</span></span><br><span class="line">            <span class="keyword">return</span> method.invoke(target, args);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            <span class="keyword">throw</span> ExceptionUtil.unwrapThrowable(e);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// ... 省略 getSignatureMap 和 getAllInterfaces 等辅助方法</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>Invocation</code>：责任链的上下文，推进责任链执行</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Invocation</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// MyBatis 只允许拦截这四大核心对象</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">List</span>&lt;Class&lt;?&gt;&gt; <span class="variable">targetClasses</span> <span class="operator">=</span> Arrays.asList(</span><br><span class="line">            Executor.class, ParameterHandler.class,</span><br><span class="line">            ResultSetHandler.class, StatementHandler.class);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Object target;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Method method;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Object[] args;</span><br><span class="line"></span><br><span class="line">    <span class="type">public</span> <span class="title function_">Invocation</span><span class="params">(Object target, Method method, Object[] args)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (!targetClasses.contains(method.getDeclaringClass())) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">IllegalArgumentException</span>(<span class="string">&quot;Method &#x27;&quot;</span> + method + <span class="string">&quot;&#x27; is not supported as a plugin target.&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">this</span>.target = target;</span><br><span class="line">        <span class="built_in">this</span>.method = method;</span><br><span class="line">        <span class="built_in">this</span>.args = args;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">Object</span> <span class="title function_">getTarget</span><span class="params">()</span> &#123; <span class="keyword">return</span> target; &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">Method</span> <span class="title function_">getMethod</span><span class="params">()</span> &#123; <span class="keyword">return</span> method; &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">Object</span>[] <span class="title function_">getArgs</span><span class="params">()</span> &#123; <span class="keyword">return</span> args; &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 推进责任链：调用目标对象（可能是原始对象，也可能是上一层的代理）的对应方法。</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">Object</span> <span class="title function_">proceed</span><span class="params">()</span> <span class="keyword">throws</span> InvocationTargetException, IllegalAccessException &#123;</span><br><span class="line">        <span class="keyword">return</span> method.invoke(target, args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="不符合条件自动阻断流程"><a href="#不符合条件自动阻断流程" class="headerlink" title="不符合条件自动阻断流程"></a>不符合条件自动阻断流程</h4><ul>
+<li>如 SpringMVC 拦截器<img src="/img/041e045e678cd2d4a4de2f31bbf6b4bb.jpeg"></li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 抽象处理器</span></span><br><span class="line"><span class="keyword">interface</span> <span class="title class_">IHandler</span> &#123; <span class="type">boolean</span> <span class="title function_">handle</span><span class="params">()</span>; &#125;</span><br><span class="line"><span class="comment">// 具体处理器</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">HandlerA</span> <span class="keyword">implements</span> <span class="title class_">IHandler</span> &#123;</span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">handle</span><span class="params">()</span> &#123;</span><br><span class="line">		<span class="comment">// 根据自定义规则判断，符合返回 true，不符合返回 false</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">HandlerB</span> implement IHandler &#123;</span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">handle</span><span class="params">()</span> &#123;</span><br><span class="line">		<span class="comment">// 根据自定义规则判断，符合返回 true，不符合返回 false</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 将具体处理器串成处理器链</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">HandlerChain</span> &#123;</span><br><span class="line">	<span class="type">List</span>&lt;IHandler&gt; <span class="variable">handlerList</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">public</span> <span class="type">void</span> <span class="title function_">addHandler</span><span class="params">(List&lt;IHandler&gt; handlers)</span> &#123;</span><br><span class="line">		handler.addAll(handlers);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">handle</span><span class="params">()</span> &#123;</span><br><span class="line">		<span class="type">boolean</span> <span class="variable">resultFlag</span> <span class="operator">=</span> <span class="literal">true</span>;</span><br><span class="line">		<span class="keyword">for</span> (IHandler each : handlerList) &#123;</span><br><span class="line">			<span class="keyword">if</span> (!each.handle()) &#123; <span class="comment">// 若不满足条件</span></span><br><span class="line">				resultFlag = <span class="literal">false</span>;</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">// 若满足条件</span></span><br><span class="line">		<span class="keyword">return</span> resultFlag;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>主函数</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ChainApplication</span> &#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="type">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">		<span class="type">HandlerChain</span> <span class="variable">handlerChain</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">HandlerChain</span>();</span><br><span class="line">		handlerChain.addHandler(Lists.newArrayList(<span class="keyword">new</span> <span class="title class_">HandlerA</span>(), <span class="keyword">new</span> <span class="title class_">HandlerB</span>()));</span><br><span class="line">		<span class="type">boolean</span> <span class="variable">resultFlag</span> <span class="operator">=</span> handlerChain.handle();</span><br><span class="line">		<span class="keyword">if</span> (!resultFlag) &#123;</span><br><span class="line">			<span class="comment">// resultFlag=flase，流程中断的处理逻辑</span></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="下单场景实战"><a href="#下单场景实战" class="headerlink" title="下单场景实战"></a>下单场景实战</h3><ul>
+<li>电商系统下单接口中的前置校验，以下为可能的校验步骤列表：<ul>
+<li>检查商品信息是否存在</li>
+<li>检查购买数量是否合法</li>
+<li>检查商品库存是否充足</li>
+<li>检查购买者的优惠券、积分等是否可以使用</li>
+<li>检查收货地址信息是否完整和准确</li>
+<li>检查下单时间是否合法</li>
+</ul>
+</li>
+</ul>
+<h4 id="抽象基础类"><a href="#抽象基础类" class="headerlink" title="抽象基础类"></a>抽象基础类</h4><ul>
+<li>上层抽象处理器<ul>
+<li>责任链组件标识 Mark：抽象出来方便订单下单、用户创建等场景复用，故某类责任链子类的 Mark方法返回值相同</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 继承 Spring 框架中的排序接口 Ordered</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">AbstractChainHandler</span>&lt;T&gt; <span class="keyword">extends</span> <span class="title class_">Ordered</span> &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 执行责任链逻辑</span></span><br><span class="line">    <span class="type">void</span> <span class="title function_">handler</span><span class="params">(T requestParam)</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 责任链组件标识：假设订单下单、用户创建都需要责任链模式验证，可用来分组</span></span><br><span class="line">    <span class="type">String</span> <span class="title function_">mark</span><span class="params">()</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>抽象责任链</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">class</span> <span class="title class_">AbstractChainContext</span>&lt;T&gt; &#123;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">// 构造器注入</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="type">Map</span>&lt;String, List&lt;AbstractChainHandler&gt;&gt; <span class="variable">abstractChainHandlerContainer</span> <span class="operator">=</span> Maps.newHashMap();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 构造器注入：Spring 看到 `List&lt;AbstractChainHandler` 会在 IOC 容器中收集所有 AbstractChainHandler Bean（默认按 @Order 排序）注入进来</span></span><br><span class="line">    <span class="type">public</span> <span class="title function_">AbstractChainContext</span><span class="params">(List&lt;AbstractChainHandler&gt; handlers)</span> &#123;</span><br><span class="line">        <span class="comment">// 以bean.mark()为key获取对应的责任链(value)</span></span><br><span class="line">		<span class="keyword">for</span> (AbstractChainHandler bean : handlers) &#123;</span><br><span class="line">            <span class="type">String</span> <span class="variable">mark</span> <span class="operator">=</span> bean.mark();</span><br><span class="line">            <span class="comment">// 某具体处理器的mark为空或不存在</span></span><br><span class="line">            <span class="keyword">if</span> (mark == <span class="literal">null</span> || mark.isBlank()) &#123;</span><br><span class="line">                <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">IllegalStateException</span>(</span><br><span class="line">                        <span class="string">&quot;AbstractChainHandler 的 mark 不能为空: &quot;</span> + bean.getClass().getName());</span><br><span class="line">            &#125;</span><br><span class="line">            abstractChainHandlerContainer.computeIfAbsent(mark, k -&gt; <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;()).add(bean);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">	<span class="comment">// 通过mark取出对应责任链，并执行</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">void</span> <span class="title function_">handler</span><span class="params">(String mark, T requestParam)</span> &#123;</span><br><span class="line">        abstractChainHandlerContainer.get(mark).stream()</span><br><span class="line">                .sorted(Comparator.comparing(Ordered::getOrder)).forEach(each -&gt; each.handler(requestParam));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="抽象业务接口"><a href="#抽象业务接口" class="headerlink" title="抽象业务接口"></a>抽象业务接口</h4><ul>
+<li>抽象处理器：继承上层抽象处理器，作为<strong>具体业务的抽象处理器</strong></li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 订单创建责任链过滤器：具体业务责任链接口</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">OrderCrateChainFilter</span>&lt;T <span class="keyword">extends</span> <span class="title class_">AbstractChainHandler</span>&lt;OrderCrateCommand&gt; &#123;</span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="keyword">default</span> <span class="type">String</span> <span class="title function_">mark</span><span class="params">()</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> OrderChainmarkEnum.ORDER_CREATE_FILTER.name();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="具体业务接口"><a href="#具体业务接口" class="headerlink" title="具体业务接口"></a>具体业务接口</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 订单创建参数必填检验</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">class</span> <span class="title class_">OrderCreateParamNotNullChainHandler</span> <span class="keyword">implements</span> <span class="title class_">OrderCreateChainFilter</span>&lt;OrderCreateCommand&gt; &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">void</span> <span class="title function_">handler</span><span class="params">(OrderCreateCommand requestParam)</span> &#123;</span><br><span class="line">    	<span class="comment">// 逻辑执行</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">getOrder</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 订单创建参数正确性检验</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">class</span> <span class="title class_">OrderCreateParamVerificationChainHandler</span> <span class="keyword">implements</span> <span class="title class_">OrderCreateChainFilter</span>&lt;OrderCreateCommand&gt; &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">void</span> <span class="title function_">handler</span><span class="params">(OrderCreateCommand requestParam)</span> &#123;</span><br><span class="line">    	<span class="comment">// 逻辑执行</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">getOrder</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 订单创建商品 SKU 库存验证</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">class</span> <span class="title class_">OrderCreateProductSkuStockChainHandler</span> <span class="keyword">implements</span> <span class="title class_">OrderCreateChainFilter</span>&lt;OrderCreateCommand&gt; &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">void</span> <span class="title function_">handler</span><span class="params">(OrderCreateCommand requestParam)</span> &#123;</span><br><span class="line">    	<span class="comment">// 逻辑执行</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">getOrder</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">2</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+    </div>
+    <footer class="article-footer">
+        <a class="article-category-link" href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" title="设计模式" data-aos="zoom-in">设计模式</a>
+
+        <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item" data-aos="zoom-in"><a class="article-tag-list-link" href="/tags/Java/" rel="tag" title="Java">Java</a></li><li class="article-tag-list-item" data-aos="zoom-in"><a class="article-tag-list-link" href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="tag" title="设计模式">设计模式</a></li></ul>
+
+    </footer>
+  </div>
+    <nav id="article-nav" aria-label="Article navigation" data-aos="fade-up">
+      <div class="article-nav-link-wrap right">
+            <img data-src="/images/banner.webp" data-sizes="auto" alt="ShardingSphere 分库分表" class="lazyload">
+        <a href="/2026/11/25/%E5%88%86%E5%BA%93%E5%88%86%E8%A1%A8/" aria-label="后一篇: ShardingSphere 分库分表" title="后一篇: ShardingSphere 分库分表"></a>
+        <div class="article-nav-caption">后一篇</div>
+        <h3 class="article-nav-title">
+            ShardingSphere 分库分表
+        </h3>
+      </div>
+  </nav>
+
+</article>
+
+
+</section>
+        </div>
+        <footer id="footer" aria-label="Site footer">
+  <div style="width: 100%; overflow: hidden">
+    <div class="footer-line"></div>
+  </div>
+  <div id="footer-info">
+    <div>
+      <span class="icon-copyright"></span>
+        2026
+        <span class="footer-info-sep rotate"></span>
+      Kenja
+    </div>
+      <div>
+        <span class="icon-brush"></span>
+        12.7k
+        &nbsp;|&nbsp;
+        <span class="icon-coffee"></span>
+        00:56
+      </div>
+      <div>
+        <span class="icon-eye"></span>
+        <span id="busuanzi_container_site_pv">总访问量&nbsp;<span id="busuanzi_value_site_pv"></span></span>
+        &nbsp;|&nbsp;
+        <span class="icon-user"></span>
+        <span id="busuanzi_container_site_uv">总访客量&nbsp;<span id="busuanzi_value_site_uv"></span></span>
+      </div>
+  </div>
+</footer>
+
+          <div class="sidebar-top">
+            <div class="sidebar-top-taichi rotate"></div>
+            <div class="arrow-up"></div>
+          </div>
+        <div id="mask" class="hide"></div>
+      </div>
+      <nav id="mobile-nav" aria-label="Mobile navigation">
+  <div class="sidebar-wrap">
+      <div class="sidebar-toc-sidebar"><h3 class="toc-title">文章目录</h3>
+<div class="sidebar-toc-wrapper toc-div-class" >
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E7%BB%93%E6%9E%84"><span class="toc-number">1.</span> <span class="toc-text">基本结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%A4%E7%A7%8D%E5%A4%84%E7%90%86%E6%A8%A1%E5%BC%8F"><span class="toc-number">2.</span> <span class="toc-text">两种处理模式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AF%B7%E6%B1%82%E7%BB%8F%E8%BF%87%E6%89%80%E6%9C%89%E5%A4%84%E7%90%86%E5%99%A8%E2%80%94%E2%80%94Mybatis"><span class="toc-number">2.1.</span> <span class="toc-text">请求经过所有处理器——Mybatis</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%8D%E7%AC%A6%E5%90%88%E6%9D%A1%E4%BB%B6%E8%87%AA%E5%8A%A8%E9%98%BB%E6%96%AD%E6%B5%81%E7%A8%8B"><span class="toc-number">2.2.</span> <span class="toc-text">不符合条件自动阻断流程</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8B%E5%8D%95%E5%9C%BA%E6%99%AF%E5%AE%9E%E6%88%98"><span class="toc-number">3.</span> <span class="toc-text">下单场景实战</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8A%BD%E8%B1%A1%E5%9F%BA%E7%A1%80%E7%B1%BB"><span class="toc-number">3.1.</span> <span class="toc-text">抽象基础类</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8A%BD%E8%B1%A1%E4%B8%9A%E5%8A%A1%E6%8E%A5%E5%8F%A3"><span class="toc-number">3.2.</span> <span class="toc-text">抽象业务接口</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%B7%E4%BD%93%E4%B8%9A%E5%8A%A1%E6%8E%A5%E5%8F%A3"><span class="toc-number">3.3.</span> <span class="toc-text">具体业务接口</span></a></li></ol></li></ol>
+</div>
+</div>
+      <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
+  <img data-src="/avatar/%E8%BF%A6%E6%91%A9.jpg" data-sizes="auto" alt="Kenja" class="lazyload">
+  <div class="sidebar-author-name">Kenja</div>
+  <div class="sidebar-description"></div>
+</div>
+<div class="sidebar-state">
+  <div class="sidebar-state-article">
+    <div>文章</div>
+    <div class="sidebar-state-number">7</div>
+  </div>
+  <div class="sidebar-state-category">
+    <div>分类</div>
+    <div class="sidebar-state-number">5</div>
+  </div>
+  <div class="sidebar-state-tag">
+    <div>标签</div>
+    <div class="sidebar-state-number">11</div>
+  </div>
+</div>
+<div class="sidebar-social" >
+    <div class="icon-github sidebar-social-icon">
+      <a href=https://github.com/kenjayukari itemprop="url" target="_blank" aria-label="github" rel="noopener nofollow noreferrer"></a>
+    </div>
+    <div class="icon-bilibili sidebar-social-icon">
+      <a href=https://space.bilibili.com/ itemprop="url" target="_blank" aria-label="bilibili" rel="noopener nofollow noreferrer"></a>
+    </div>
+    <div class="icon-pixiv sidebar-social-icon">
+      <a href=https://www.pixiv.net/users/119815951 itemprop="url" target="_blank" aria-label="pixiv" rel="noopener nofollow noreferrer"></a>
+    </div>
+</div>
+<div class="sidebar-menu">
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/" aria-label="首页"></a>
+          <div class="sidebar-menu-icon icon rotate">
+              &#xe62b;
+          </div>
+        <div class="sidebar-menu-link">首页</div>
+      </div>
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/archives" aria-label="归档"></a>
+          <div class="sidebar-menu-icon icon rotate">
+              &#xe62b;
+          </div>
+        <div class="sidebar-menu-link">归档</div>
+      </div>
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/about" aria-label="关于"></a>
+          <div class="sidebar-menu-icon icon rotate">
+              &#xe62b;
+          </div>
+        <div class="sidebar-menu-link">关于</div>
+      </div>
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/friend" aria-label="友链"></a>
+          <div class="sidebar-menu-icon icon rotate">
+              &#xe62b;
+          </div>
+        <div class="sidebar-menu-link">友链</div>
+      </div>
+</div>
+</div>
+  </div>
+    <div class="sidebar-btn-wrapper">
+      <div class="sidebar-toc-btn current"></div>
+      <div class="sidebar-common-btn"></div>
+    </div>
+</nav>
+
+    </div>
+    
+<script src="https://npm.webcache.cn/lazysizes@5.3.2/lazysizes.min.js" integrity="sha384-3gT&#x2F;vsepWkfz&#x2F;ff7PpWNUeMzeWoH3cDhm&#x2F;A8jM7ouoAK0&#x2F;fP&#x2F;9bcHHR5kHq2nf+e" crossorigin="anonymous"></script>
+
+
+<script src="https://npm.webcache.cn/clipboard@2.0.11/dist/clipboard.min.js" integrity="sha384-J08i8An&#x2F;QeARD9ExYpvphB8BsyOj3Gh2TSh1aLINKO3L0cMSH2dN3E22zFoXEi0Q" crossorigin="anonymous"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+  
+<script src="/js/aos.js"></script>
+
+  <script>
+    var aosInit = () => {
+      AOS.init({
+        duration: 700,
+        easing: "ease-out-cubic",
+        once: true,
+        offset: 50,
+      });
+    };
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', aosInit);
+    } else {
+      aosInit();
+    }
+  </script>
+
+
+<script src="/js/pjax_script.js" data-pjax></script>
+
+
+
+
+  <script>
+    var setupFirework = () => {
+      if (!false || !window.matchMedia('(max-width: 768px)').matches) {
+        window.firework && window.firework(JSON.parse('{"excludeElements":["a","button"],"particles":[{"shape":"circle","move":["emit"],"easing":"easeOutExpo","colors":["var(--red-1)","var(--red-2)","var(--red-3)","var(--red-4)"],"number":20,"duration":[1200,1800],"shapeOptions":{"radius":[16,32],"alpha":[0.3,0.5]}},{"shape":"circle","move":["diffuse"],"easing":"easeOutExpo","colors":["var(--red-0)"],"number":1,"duration":[1200,1800],"shapeOptions":{"radius":20,"alpha":[0.2,0.5],"lineWidth":6}}]}'));
+      }
+    }
+  </script>
+  
+<script src="https://npm.webcache.cn/mouse-firework@0.2.0/dist/index.umd.js" integrity="sha384-qi9WggRt19tv8Vc7pCHW3ulMNLwrn515zaLEWZjl1px07vz8+pUoWX8n1rgq282T" crossorigin="anonymous" onload="setupFirework()" defer></script>
+
+
+
+
+
+
+<div id="lazy-script">
+  <div>
+      
+      
+      <script data-pjax>
+        window.REIMU_POST = {
+          author: "Kenja",
+          title: "责任链设计模式",
+          url: "http://example.com/2026/11/27/%E8%B4%A3%E4%BB%BB%E9%93%BE%E6%A8%A1%E5%BC%8F/",
+          excerpt: "",
+          description: "",
+          stripContent: " 责任链模式：构建对象链，链条上的每个处理器各自承担各自的处理职责。一个请求先经过 A 处理器处理，然后再把请求传递给 B 处理器，B 处理器处理完后再传递给 C 处理器，以此类推 应用场景：请求的预处理、过滤、分发等场景 优缺点： 优点：解耦、灵活 缺点：处理链处理时间过长影响性能，有些请求可能无法处理    基本结构 基本结构：  抽象处理器 Handler：定义一个处理请求的接口，包含一个处理请求的抽象方法和一个指向下一个处理者的链接 具体处理器 ConcreteHandler：实现处理请",
+          date: "Fri Nov 27 2026 00:00:00 GMT+0800",
+          updated: "Fri Nov 27 2026 21:28:04 GMT+0800",
+          cover: "/images/banner.webp",
+        };
+      </script>
+        
+<script src="/js/insert_highlight.js" data-pjax></script>
+
+      
+<script src="/js/tabs.js" data-pjax defer></script>
+
+      <script type="module" data-pjax>
+        (async () => {
+          const PhotoSwipeLightbox = (await safeImport("https://npm.webcache.cn/photoswipe@5.4.4/dist/photoswipe-lightbox.esm.min.js", "sha384-DiL6M/gG+wmTxmCRZyD1zee6lIhawn5TGvED0FOh7fXcN9B0aZ9dexSF/N6lrZi/")).default;
+          const initPswp = (gallery, children) => {
+            if (_$$(`${gallery} ${children}`).length > 0) {
+              new PhotoSwipeLightbox({
+                gallery,
+                children,
+                pswpModule: () => safeImport("https://npm.webcache.cn/photoswipe@5.4.4/dist/photoswipe.esm.min.js", "sha384-WkkO3GCmgkC3VQWpaV8DqhKJqpzpF9JoByxDmnV8+oTJ7m3DfYEWX1fu1scuS4+s")
+              }).init();
+            }
+          }
+          const pswp = () => {
+            initPswp('.article-entry', 'a.article-gallery-item');
+            initPswp('.article-gallery', 'a.article-gallery-item');
+          }
+          pswp();
+        })();
+      </script>
+        
+
+
+  </div>
+</div>
+
+
+  <script>
+    console.log(String.raw`%c 
+ ______     ______     __     __    __     __  __    
+/\  == \   /\  ___\   /\ \   /\ "-./  \   /\ \/\ \   
+\ \  __<   \ \  __\   \ \ \  \ \ \-./\ \  \ \ \_\ \  
+ \ \_\ \_\  \ \_____\  \ \_\  \ \_\ \ \_\  \ \_____\ 
+  \/_/ /_/   \/_____/   \/_/   \/_/  \/_/   \/_____/ 
+                                                  
+`,'color: #ff5252;')
+    console.log('%c Theme.Reimu v' + '1.12.6' + ' %c https://github.com/D-Sketon/hexo-theme-reimu ', 'color: white; background: #ff5252; padding:5px 0;', 'padding:4px;border:1px solid #ff5252;')
+  </script>
+  
+
+
+  
+<script src="https://npm.webcache.cn/busuanzi@2.3.0/bsz.pure.mini.js" integrity="sha384-0M75wtSkhjIInv4coYlaJU83+OypaRCIq2SukQVQX04eGTCBXJDuWAbJet56id+S" crossorigin="anonymous" async></script>
+
+
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.getRegistrations().then((registrations) => {
+      for (let registration of registrations) {
+        registration.unregister();
+      }
+    });
+  }
+</script>
+
+
+
+
+  </body>
+  </html>
